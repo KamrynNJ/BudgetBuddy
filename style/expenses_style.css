@@ -1,0 +1,30 @@
+body {
+  background-color: powderblue;
+
+}
+
+h1 {
+
+}
+
+button {
+
+}
+.row{
+
+
+}
+
+.expenses {
+display: flex;
+}
+#expense{
+  padding-right: 100px;
+}
+#des{
+  padding-right: 60px;
+}
+
+#boxes {
+justify-content:space-around;
+}
