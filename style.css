@@ -1,5 +1,5 @@
 body {
-  background-image: ('/cssi/moneyraning.gif');
+  background-image: url('moneyraining.gif');
   height: 100%;
   width: 100%;
   background-position: middle;
@@ -19,4 +19,19 @@ h1 {
   width: 100px;
   padding-top: 200px;
   justify-content: space-around;
+  padding-right: 15%;
+}
+
+button {
+  height: 50px;
+  width: 70px;
+  display: block;
+  max-width: 300px;
+  margin: auto;
+  border-radius: 15px;
+}
+
+#startButton {
+  text-align: center;
+  vertical-align: center;
 }
