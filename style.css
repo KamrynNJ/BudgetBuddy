@@ -1,0 +1,22 @@
+body {
+  background-image: ('/cssi/moneyraning.gif');
+  height: 100%;
+  width: 100%;
+  background-position: middle;
+  background-size: cover;
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  color: cornflowerblue;
+  text-align: center;
+  font-size: 100px;
+  margin: auto;
+  width: 100px;
+  padding-top: 200px;
+  justify-content: space-around;
+}
