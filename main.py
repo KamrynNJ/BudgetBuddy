@@ -54,7 +54,7 @@ class BudgetPage(webapp2.RequestHandler):
         #are willing to save per month or how many months they are willing to save.
 
 
-class budgetConfirm(webapp2.RequestHandler):
+class budgetConfirmPage(webapp2.RequestHandler):
     def post(self):
         #This page will display the perviously entered amounts and then allow for
         #a redirect to the BudgetPage with calculated results
