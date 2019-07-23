@@ -1,6 +1,8 @@
 import webapp2
 import jinja2
 import os
+from google.appengine.api import users
+
 # from classes import Budget
 the_jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -15,13 +17,13 @@ class Budget(ndb.Model):
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
     user_id = ndb.StringProperty(required = True)
-    User_budget =  = ndb.KeyProperty(Budget, repeated=False)
+    User_budget = ndb.KeyProperty(Budget, repeated=False)
 
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         # comment_list = Comment.query().fetch()
-        maintemp = the_jinja_env.get_template("templates/homepage.html")
+        maintemp = the_jinja_env.get_template("templates/index.html")
         self.response.write(maintemp.render())
 class ExpensePage(webapp2.RequestHandler):
     def get(self):
@@ -36,8 +38,8 @@ class BudgetPage(webapp2.RequestHandler):
         #In addition, the budget page will retrieve the income and expense data
         #from ExpensePage.
         Budget_list = Budget.query().fetch()
-        total_expenses = self.request.get("INSERTEXPENSENAME")
-        total_income = self.request.get("INSERTINCOMENAME")
+        total_expenses = self.request.get("inserted_expense")
+        total_income = self.request.get("inserted_income")
         new_Budget = Budget(expenses = total_expenses, income = total_income)
         new_Budget.put()
         budget_template = the_jinja_env.get_template("templates/budget.html")
