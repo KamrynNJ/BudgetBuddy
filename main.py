@@ -10,8 +10,12 @@ the_jinja_env = jinja2.Environment(
 from google.appengine.ext import ndb
 
 class Budget(ndb.Model):
-    expenses = ndb.StringProperty(required=True)
-    income = ndb.StringProperty(required=True)
+    expenses = ndb.IntegerProperty(required=True)
+    income = ndb.IntegerProperty(required=True)
+class User(ndb.Model):
+    email = ndb.StringProperty(required = True)
+    user_id = ndb.StringProperty(required = True)
+    User_budget =  = ndb.KeyProperty(Budget, repeated=False)
 
 
 class MainPage(webapp2.RequestHandler):
