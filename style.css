@@ -43,3 +43,12 @@ button {
   text-align: center;
   vertical-align: center;
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 35px;
+  margin-left: 600px;
+  justify-content: space-evenly;
+}
