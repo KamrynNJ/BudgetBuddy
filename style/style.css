@@ -32,6 +32,14 @@ button {
   background-color: green;
   font-size: 25pt;
 }
+.row{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 35px;
+  margin-left: 600px;
+  justify-content:space-evenly;
+  
+}
 
 #startButton {
   text-align: center;

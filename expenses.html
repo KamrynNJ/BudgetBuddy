@@ -2,20 +2,35 @@
 <html>
 <head>
   <title>Expenses</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="expenses_style.css">
 </head>
 <body>
 <h3>Welcome Back</h3>
 <form method="post" action="/budget">
-      <p>Monthly Income</p><br>
-      <p>$</p><input type="text" name="inserted_income" value="">
-      <p>Expenses</p><br>
-      <p>$</p><input type="text" name="inserted_expense" value="">
-      <br>
+      <p>Monthly Income <br>$
+      </p><input type="text" name="inserted_income" value="">
+      <p>Expenses: <br>
+      </p>
+      <select name="dropdown">
+        <option value="Groceries" selected>Groceries</option>
+        <option value="Home">Home and Utilites</option>
+        <option value="Debt">Debt or Loans</option>
+        <option value="Tuition">Tuition</option>
+        <option value="Health"> Health and Personal Care</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Other">Other</option>
+      </select>
+      <div id="expenses">
+      <p>Description: </p>
+      <input id ="destext" type="text" name="describe" value="">
+      <p>Amount: </p>
+      <input type="text" name="amount" value=""> <button type="button" id="add">+</button>
+    </div>
+      <br><br>
       <input type="submit" value="Submit">
 
-      
-    </form>
 
+    </form>
+<script src="Index.js"></script>
 </body>
 </html>
