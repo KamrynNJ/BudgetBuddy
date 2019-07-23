@@ -23,12 +23,22 @@ h1 {
 }
 
 button {
-  height: 50px;
-  width: 70px;
+  height: 75px;
+  width: 150px;
   display: block;
   max-width: 300px;
   margin: auto;
   border-radius: 15px;
+  background-color: green;
+  font-size: 25pt;
+}
+.row{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 35px;
+  margin-left: 600px;
+  justify-content:space-evenly;
+  
 }
 
 #startButton {
