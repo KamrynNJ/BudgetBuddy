@@ -51,12 +51,21 @@ class BudgetPage(webapp2.RequestHandler):
         self.response.write(budget_template.render(budget_dict))
 
     def post(self):
+        blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
+        the_amount= self.request.get('amount')
+        the_des=self.request.get('des')
+        the_expenses=self.request.get("expense")
+
+        new_budget_entity = Budget(expense = the_expenses,
+                                   description = the_des,
+                                   expense_amount = the_amount
+                                   )
+        new_post_entity.put()
+
+
+
         #This is where the page will post the remaining money (income-expenses)
-        expense_template = the_jinja_env.get_template("templates/budgetConfirm.html")
-        self.response.write(expense_template.render())
-    #def get(self):
-        #This is where we will ask the user to put either how much money they
-        #are willing to save per month or how many months they are willing to save.
+
 
 
 class budgetConfirmPage(webapp2.RequestHandler):
