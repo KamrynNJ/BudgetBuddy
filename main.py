@@ -13,7 +13,7 @@ from google.appengine.ext import ndb
 
 class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
-    income = ndb.IntegerProperty(required=False)
+    income = ndb.StringProperty(required=False)
     description=ndb.StringProperty(required=True)
     expense_amount=ndb.StringProperty(required=True)
 class User(ndb.Model):
@@ -57,10 +57,12 @@ class BudgetPage(webapp2.RequestHandler):
         the_amount= self.request.get('amount')
         the_des=self.request.get('description_of_thing')
         the_expenses=self.request.get("dropdown")
+        the_income=self.request.get("income_added")
 
         new_budget_entity = Budget(expenses = the_expenses,
                                    description = the_des,
-                                   expense_amount = the_amount
+                                   expense_amount = the_amount,
+                                   income=the_income
                                    )
         new_budget_entity.put()
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity}))

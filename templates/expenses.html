@@ -7,7 +7,7 @@
 <body>
 <h1><center>Welcome Back<center></h1>
 <form method="post" action="/budget_confir.html">
-      <h2>Monthly Income </h2>$ <input id="monthly_income" type="number" name="inserted_income" placeholder="0.00" value="" ></p>
+      <h2>Monthly Income <br>$<input id="monthly_income" type="number" name="income_added" placeholder="0.00" value="" ></h2>
       <div id="boxes">
         <h2>Expenses:</h2>
         <div id="individual_divs">
@@ -24,13 +24,13 @@
       </h3>
 
         <h3>Description<br><input id ="destext" type="text" name = "description_of_thing" placeholder="add a description" value=""></h3>
-        <h3>Amount <br> $<input id="expense_amount" type="number" name="amount" placeholder="0.00" value=""> <button type="button" id="add">+</button></h3>
+        <h3>Amount <br> $<input id="expense_amount" type="number" name="amount" placeholder="0.00" step="0.01" value=""> <button type="button" id="add">+</button></h3>
     </div>
     </div>
 <input id ="submit" type="submit" value="Submit">
 
 
     </form>
-<script src="../Index.js"></script>
+<script src="../style/Index.js"></script>
 </body>
 </html>
