@@ -8,7 +8,8 @@ function addInput(boxes){
      }
      else {
           var newdiv = document.createElement('div');
-          newdiv.innerHTML = "Expense " + (counter + 1) + "<br> <select><option value='Groceries'selected>Groceries</option><option value='Home'>Home and Utilites</option><option value='Debt'>Debt or Loans</option><option value='Tuition'>Tuition</option><option value='Health'> Health and Personal Care</option><option value='Entertainment'>Entertainment</option><option value='Other'>Other</option></select> <input id ='destext' type='text' name='describe' value=''> <input type='text' name='myInputs[]'>";
+          newdiv.setAttribute("id", "boxes1");
+          newdiv.innerHTML = "<select><option value='Groceries'selected>Groceries</option><option value='Home'>Home and Utilites</option><option value='Debt'>Debt or Loans</option><option value='Tuition'>Tuition</option><option value='Health'> Health and Personal Care</option><option value='Entertainment'>Entertainment</option><option value='Other'>Other</option></select> <input id ='destext' type='text' name='describe' placeholder='add a description' value=''> <input type='number' placeholder='0.00' name='myInputs[]'>";
           document.getElementById("boxes").appendChild(newdiv);
           counter++;
      }
