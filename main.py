@@ -44,13 +44,13 @@ class BudgetPage(webapp2.RequestHandler):
         total_income = self.request.get("amount")
         # new_Budget = Budget(expenses = total_expenses, income = total_income)
         # new_Budget.put()
-        budget_dict = {
-            "expenses": int(total_expenses),
-            "income": int(total_income),
-            "extra": total_income - total_expenses,
-        }
+        # budget_dict = {
+        #     "expenses": int(total_expenses),
+        #     "income": int(total_income),
+        #     "extra": total_income - total_expenses,
+        # }
         budget_template = the_jinja_env.get_template("templates/budget.html")
-        self.response.write(budget_template.render(budget_dict))
+        self.response.write(budget_template.render())
 
     def post(self):
         blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
