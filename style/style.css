@@ -19,7 +19,7 @@ h1 {
   width: 100px;
   padding-top: 200px;
   justify-content: space-around;
-  padding-right: 15%;
+  padding-right: 10%;
 }
 
 button {
@@ -34,16 +34,23 @@ button {
 }
 .row{
   display: flex;
-  justify-content: flex-end;
+  font-size: 25px;
   margin-right: 35px;
-  margin-left: 600px;
+  float:right;
   justify-content:space-evenly;
-  
-}
 
+}
+#Login{
+  padding-right: 10px;
+}
+#Sign-up{
+  padding-left: 10px;
+}
 #startButton {
-  text-align: center;
-  vertical-align: center;
+  /* text-align: center;
+  vertical-align: center; */
+  margin-left: 43%;
+  margin-right: 40%;
 }
 
 .row {
