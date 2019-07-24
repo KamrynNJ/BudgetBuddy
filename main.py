@@ -10,16 +10,14 @@ the_jinja_env = jinja2.Environment(
     autoescape=True
 )
 from google.appengine.ext import ndb
-
+class Bud(ndb.Model):
+    Budgets = ndb.KeyProperty(Budget, repeated=True)
+    Income = ndb.StringProperty(required=True)
 class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
     income = ndb.StringProperty(required=False)
     description=ndb.StringProperty(required=True)
-    expense_amount=ndb.IntegerProperty(required=True)
-class User(ndb.Model):
-    email = ndb.StringProperty(required = True)
-    user_id = ndb.StringProperty(required = True)
-    User_budget = ndb.KeyProperty(Budget, repeated=False)
+    expense_amount=ndb.StringProperty(required=True)
 
 
 class MainPage(webapp2.RequestHandler):
