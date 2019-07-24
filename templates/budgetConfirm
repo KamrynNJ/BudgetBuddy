@@ -6,8 +6,6 @@
 </head>
 <body>
   <h1>Budget Overview</h1>
-  <h3> Currently Entered Income: <span class= money> {{something from python}} </span></h3>
-  <h3> Currently Entered Expenses: <span class = expenses> {{something from python}} </span>
   <h3> Money Remaining After Expenses: <span class= money> {{something from python}} </span></h3>
   <br>
   <p>
