@@ -1,19 +1,7 @@
 body {
-  background-color: powderblue;
-
+  background-color: deepskyblue;
 }
 
-h1 {
-
-}
-
-button {
-
-}
-.row{
-
-
-}
 
 .expenses {
 display: flex;
@@ -24,7 +12,36 @@ display: flex;
 #des{
   padding-right: 60px;
 }
+#submit{
+  float: right;
+}
 
-#boxes {
-justify-content:space-around;
+#individual_divs {
+  border-color: white;
+  border-style: solid;
+  border-width: 5px;
+  display: flex;
+  border-radius: 10px;
+  justify-content:space-evenly;
+  width: 95%;
+  margin-bottom: 5px;
+}
+input{
+  height: 25px;
+}
+select{
+  height: 35px;
+}
+#boxes1 {
+  width: 95.25%;
+  border-radius: 10px;
+  display: flex;
+  border-color: white;
+  border-style: solid;
+  border-width: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-right: 30px;
+  margin-bottom: 5px;
+  justify-content:space-evenly;
 }
