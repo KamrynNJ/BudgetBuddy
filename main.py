@@ -12,8 +12,10 @@ the_jinja_env = jinja2.Environment(
 from google.appengine.ext import ndb
 
 class Budget(ndb.Model):
-    expenses = ndb.IntegerProperty(required=True)
-    income = ndb.IntegerProperty(required=True)
+    expenses = ndb.StringProperty(required=True)
+    income = ndb.IntegerProperty(required=False)
+    description=ndb.StringProperty(required=True)
+    expense_amount=ndb.StringProperty(required=True)
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
     user_id = ndb.StringProperty(required = True)
@@ -56,12 +58,12 @@ class BudgetPage(webapp2.RequestHandler):
         the_des=self.request.get('des')
         the_expenses=self.request.get("expense")
 
-        new_budget_entity = Budget(expense = the_expenses,
+        new_budget_entity = Budget(expenses = the_expenses,
                                    description = the_des,
                                    expense_amount = the_amount
                                    )
-        new_post_entity.put()
-
+        new_budget_entity.put()
+        self.response.write(blogs_template.render({'budget_info' : new_budget_entity}))
 
 
         #This is where the page will post the remaining money (income-expenses)
@@ -80,6 +82,6 @@ app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/expenses", ExpensePage),
     ("/budget", BudgetPage),
-    ("/budgetConfirm", budgetConfirmPage)
+    ("/budget_confir.html", BudgetPage)
 
 ], debug=True)
