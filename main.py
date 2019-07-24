@@ -18,13 +18,11 @@ class Budget(ndb.Model):
     income = ndb.StringProperty(required=False)
     description=ndb.StringProperty(required=True)
     expense_amount=ndb.StringProperty(required=True)
-<<<<<<< HEAD
-=======
+
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
     user_id = ndb.StringProperty(required = True)
     User_budget = ndb.KeyProperty(Budget, repeated=False)
->>>>>>> 4fc5acf5be16c98fc79c2f06c1be41bab29460f8
 
 
 class MainPage(webapp2.RequestHandler):
