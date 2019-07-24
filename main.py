@@ -10,9 +10,6 @@ the_jinja_env = jinja2.Environment(
     autoescape=True
 )
 from google.appengine.ext import ndb
-class Bud(ndb.Model):
-    Budgets = ndb.KeyProperty(Budget, repeated=True)
-    Income = ndb.StringProperty(required=True)
 class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
     income = ndb.StringProperty(required=False)
