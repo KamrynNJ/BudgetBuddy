@@ -15,7 +15,7 @@ class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
     income = ndb.StringProperty(required=False)
     description=ndb.StringProperty(required=True)
-    expense_amount=ndb.StringProperty(required=True)
+    expense_amount=ndb.IntegerProperty(required=True)
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
     user_id = ndb.StringProperty(required = True)
@@ -40,17 +40,13 @@ class BudgetPage(webapp2.RequestHandler):
         #In addition, the budget page will retrieve the income and expense data
         #from ExpensePage.
         # Budget_list = Budget.query().fetch()
-        total_expenses = self.request.get("inserted_expense")
-        total_income = self.request.get("amount")
+        # total_expenses = self.request.get("inserted_expense")
+        # total_income = self.request.get("amount")
         # new_Budget = Budget(expenses = total_expenses, income = total_income)
         # new_Budget.put()
-        # budget_dict = {
-        #     "expenses": int(total_expenses),
-        #     "income": int(total_income),
-        #     "extra": total_income - total_expenses,
-        # }
+        budget_list = Budget.query().fetch()
         budget_template = the_jinja_env.get_template("templates/budget.html")
-        self.response.write(budget_template.render())
+        self.response.write(budget_template.render({"bud_list": budget_list,}))
 
     def post(self):
         blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
@@ -61,8 +57,12 @@ class BudgetPage(webapp2.RequestHandler):
 
         new_budget_entity = Budget(expenses = the_expenses,
                                    description = the_des,
+<<<<<<< HEAD
+                                   expense_amount = int(the_amount)
+=======
                                    expense_amount = the_amount,
                                    income=the_income
+>>>>>>> 6ea1223cd4d45ee1d57654b984357d168318be3c
                                    )
         new_budget_entity.put()
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity}))
