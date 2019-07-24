@@ -37,13 +37,18 @@ class BudgetPage(webapp2.RequestHandler):
         #are willing to save per month or how many months they are willing to save.
         #In addition, the budget page will retrieve the income and expense data
         #from ExpensePage.
-        Budget_list = Budget.query().fetch()
+        # Budget_list = Budget.query().fetch()
         total_expenses = self.request.get("inserted_expense")
-        total_income = self.request.get("inserted_income")
-        new_Budget = Budget(expenses = total_expenses, income = total_income)
-        new_Budget.put()
+        total_income = self.request.get("amount")
+        # new_Budget = Budget(expenses = total_expenses, income = total_income)
+        # new_Budget.put()
+        budget_dict = {
+            "expenses": int(total_expenses),
+            "income": int(total_income),
+            "extra": total_income - total_expenses,
+        }
         budget_template = the_jinja_env.get_template("templates/budget.html")
-        self.response.write(budget_template.render())
+        self.response.write(budget_template.render(budget_dict))
 
     def post(self):
         #This is where the page will post the remaining money (income-expenses)
