@@ -57,12 +57,8 @@ class BudgetPage(webapp2.RequestHandler):
 
         new_budget_entity = Budget(expenses = the_expenses,
                                    description = the_des,
-<<<<<<< HEAD
-                                   expense_amount = int(the_amount)
-=======
                                    expense_amount = the_amount,
                                    income=the_income
->>>>>>> 6ea1223cd4d45ee1d57654b984357d168318be3c
                                    )
         new_budget_entity.put()
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity}))
