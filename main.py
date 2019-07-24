@@ -18,6 +18,13 @@ class Budget(ndb.Model):
     income = ndb.StringProperty(required=False)
     description=ndb.StringProperty(required=True)
     expense_amount=ndb.StringProperty(required=True)
+<<<<<<< HEAD
+=======
+class User(ndb.Model):
+    email = ndb.StringProperty(required = True)
+    user_id = ndb.StringProperty(required = True)
+    User_budget = ndb.KeyProperty(Budget, repeated=False)
+>>>>>>> 4fc5acf5be16c98fc79c2f06c1be41bab29460f8
 
 
 class MainPage(webapp2.RequestHandler):
@@ -47,7 +54,7 @@ class BudgetPage(webapp2.RequestHandler):
         self.response.write(budget_template.render({"bud_list": budget_list,}))
 
     def post(self):
-        blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
+        blogs_template = the_jinja_env.get_template('templates/budget.html')
         the_amount= self.request.get('amount')
         the_des=self.request.get('description_of_thing')
         the_expenses=self.request.get("dropdown")
@@ -59,7 +66,7 @@ class BudgetPage(webapp2.RequestHandler):
                                    income=the_income
                                    )
         new_budget_entity.put()
-        blogs_info=BlogPost.query().fetch()
+        budget_info=Budget.query().fetch()
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity}))
 
 
