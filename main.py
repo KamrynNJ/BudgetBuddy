@@ -46,7 +46,7 @@ class BudgetPage(webapp2.RequestHandler):
         self.response.write(budget_template.render())
 
     def post(self):
-        blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
+        blogs_template = the_jinja_env.get_template('templates/expenses.html')
         the_amount= self.request.get('amount')
         the_des=self.request.get('des')
         the_expenses=self.request.get("expense")
@@ -56,7 +56,7 @@ class BudgetPage(webapp2.RequestHandler):
                                    expense_amount = the_amount
                                    )
         new_post_entity.put()
-
+self.response.write(blogs_template.render({'budget_info' : new_budget_entity}))
 
 
         #This is where the page will post the remaining money (income-expenses)
@@ -75,6 +75,6 @@ app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/expenses", ExpensePage),
     ("/budget", BudgetPage),
-    ("/budgetConfirm", budgetConfirmPage)
+    ("/budget_confir.html", budgetConfirmPage)
 
 ], debug=True)
