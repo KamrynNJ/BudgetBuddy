@@ -2,10 +2,21 @@
 <html>
 <head>
   <title> Budget Buddy </title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style/budgetstyle.css">
 </head>
 <body>
-
-  
+  <h1>Budget Overview</h1>
+  <h3> Money Remaining After Expenses: {{something from python}} </h3>
+  <br>
+  <p>
+    How would you like to save your money?
+    <form>
+      <input type="radio" name="savingType" value="savingPerMonth"> Saving $__ Every Month<br>
+      <input type="radio" name="savingType" value="savingForSetMonths"> Saving Money for __ months<br>
+      <input type="text" name="savingType" value="">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+  </p>
 </body>
 </html>
