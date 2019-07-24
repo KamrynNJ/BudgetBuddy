@@ -5,16 +5,9 @@
   <link rel="stylesheet" href="../style/expenses_style.css">
 </head>
 <body>
+  <h1><center>Budget Buddy</center></h1>
+  <h3>Your information has been saved</h3>
 
-
-  {% for each_budget in budget_info %}
-    <h1><center>Budget Buddy</center></h1>
-    <h3><center>Here's your inputed information</center></h3>
-    <h3>Income: ${{budget_info.income}}</h3>
-    <h3>Expense: {{budget_info.expenses}}</h3>
-    <p>Amount: ${{budget_info.expense_amount}}</p>
-    <p>Description: {{budget_info.description}}</p>
-  {% endfor %}
 
   <p><a href=" budget.html">Return to Budget Report</a></p>
 

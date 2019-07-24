@@ -6,9 +6,16 @@
 </head>
 <body>
   <h1>Budget Overview</h1>
-  <h3> Currently Entered Income: <span class= money> {{something from python}} </span></h3>
-  <h3> Currently Entered Expenses: <span class = expenses> {{something from python}} </span>
-  <h3> Money Remaining After Expenses: <span class= money> {{something from python}} </span></h3>
+  <h3><center>Here's your inputed information</center></h3>
+
+  <br>
+
+    <h3>Income: ${{budget_info.income}}</h3>
+    <h3>Expense: {{budget_info.expenses}}</h3>
+    <p>Amount: ${{budget_info.expense_amount}}</p>
+    <p>Description: {{budget_info.description}}</p>
+
+
   <br>
   <p>
     How would you like to save your money?
