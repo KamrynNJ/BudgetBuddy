@@ -65,6 +65,7 @@ class BudgetPage(webapp2.RequestHandler):
 >>>>>>> 6ea1223cd4d45ee1d57654b984357d168318be3c
                                    )
         new_budget_entity.put()
+        blogs_info=BlogPost.query().fetch()
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity}))
 
 
