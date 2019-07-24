@@ -81,7 +81,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/expenses", ExpensePage),
-    ("/budget", BudgetPage),
+    ("/budget.html", BudgetPage),
     ("/budget_confir.html", BudgetPage)
 
 ], debug=True)
