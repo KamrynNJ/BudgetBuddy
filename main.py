@@ -55,8 +55,8 @@ class BudgetPage(webapp2.RequestHandler):
     def post(self):
         blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
         the_amount= self.request.get('amount')
-        the_des=self.request.get('des')
-        the_expenses=self.request.get("expense")
+        the_des=self.request.get('description_of_thing')
+        the_expenses=self.request.get("dropdown")
 
         new_budget_entity = Budget(expenses = the_expenses,
                                    description = the_des,
@@ -81,7 +81,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/expenses", ExpensePage),
-    ("/budget", BudgetPage),
+    ("/budget.html", BudgetPage),
     ("/budget_confir.html", BudgetPage)
 
 ], debug=True)
