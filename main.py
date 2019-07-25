@@ -123,7 +123,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
         new_income_entity_key = new_income_entity.put()
         current_user.user_income = new_income_entity_key
         current_user.put()
-        print (current_user)
+        # print (current_user)
         # user_income_key = current_user.user_income
         # my_income = user_income_key.get()
         # print(my_income.income)
@@ -141,7 +141,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
                 new_budget_entity_key2 = new_budget_entity2.put()
                 current_user.user_budget.append(new_budget_entity_key2)
                 current_user.put()
-                print (current_user)
+                # print (current_user)
                 the_total+=int(the_amount2)
 
         new_savings_entity= Savings(savingType=the_saving_type,
