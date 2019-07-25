@@ -22,3 +22,7 @@ body {
 #budgetHeading {
   justify-content: space-between;
   display: flex;
+
+#savingType{
+  width: 200px;
+}

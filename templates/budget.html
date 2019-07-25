@@ -5,34 +5,38 @@
   <link rel="stylesheet" href="../style/budgetstyle.css">
 </head>
 <body>
-
 <div id="budgetHeading">
   <img src="http://bestanimations.com/Money/Dollars/dollar-sign-symbol-22.gif" alt="money-rotating-gif">
   <h1>Budget Overview</h1>
   <img src="http://bestanimations.com/Money/Dollars/dollar-sign-symbol-22.gif" alt="money-rotating-gif">
 </div>
 
-
-  <h3><center>Here's your inputed information</center></h3>
+  <h3><center>Here's your input information</center></h3>
 
   <br>
 
-    <div class="budgetInfo">
-      <h3>Income: ${{income_info.income}}</h3>
-
-     {% for each_blog in budget_info %}
+  <div class="budgetInfo">
+    <h3>Income: ${{income_info.income}}</h3>
+    {% for each_blog in budget_info %}
       <h3>Expense: {{each_blog.expenses}}</h3>
       <p>Amount: ${{each_blog.expense_amount}}</p>
       <p>Description: {{each_blog.description}}</p>
     {% endfor %}
     <br>
-  <h3> Money Remaining After Expenses: <span class= money>${{total_info.total_amount}} </span></h3>
-  <h3>Your saved ${{saving_info.money_being_saved}} and this amount has been included in money after expense<h3>
-    </div>
-
+  <h3> Money Remaining After Expenses: <span class= money>{{total_info.total_amount}} </span></h3>
+</div>
 
   <br>
-
+  <p>
+    How would you like to save your money?
+    <form>
+      <input type="radio" name="savingType" value="savingPerMonth"> Saving $__ Every Month<br>
+      <input type="radio" name="savingType" value="savingForSetMonths"> Saving Money for __ months<br>
+      <span id="savingTypeDisplay"><input type="text" name="savingType" value=""></span>
+      <br>
+      <input id= "submitButton "type="submit" value="Submit">
+    </form>
+  </p>
 <script src="../Index.js"></script>
 </body>
 </html>
