@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Budget Buddy </title>
+  <link rel="stylesheet" href="../style/budgetstyle.css">
+</head>
+<body>
+
+
+
+
+  <br>
+
+  <div class="budgetInfo">
+    <h1>Wishlist</h1>
+    <!-- {{listofitems}}<br>
+    {{listofprices}} -->
+    {% for x in range(listofitems|length) %}
+    <h3>Name: {{listofitems[x]}}        Price: {{listofprices[x]}}</h3>
+    <br>
+    {% endfor %}
+    <!-- {% for item in listofitems %}
+      <h3>{{item}}</h3>
+    {% endfor %}
+    <br>
+    {% for price in listofprices %}
+      <h3>{{price}}</h3>
+    {% endfor %} -->
+
+</div>
+
+  <br>
+
+<script src="../wishlist.js"></script>
+</body>
+</html>

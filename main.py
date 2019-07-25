@@ -134,13 +134,71 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                                    'income_info': new_income_entity,
                                                    'total_info': new_total_entity,
                                                    'saving_info': new_savings_entity}))
+class WishAddPage(webapp2.RequestHandler):
+    def get(self):
+        #This is where we will ask the user to input monthly income and expenses
+        addwish_template = the_jinja_env.get_template("templates/add_wishlist.html")
+        self.response.write(addwish_template.render())
+class WishlistPage(webapp2.RequestHandler):
+    def post(self):
+        the_total=0;
+
+        wish_template = the_jinja_env.get_template('templates/wishlist.html')
+        price = self.request.get('inserted_price')
+        item_name = self.request.get('inserted_item_name')
+        the_counter=self.request.get("counter")
 
 
+        price_list = [price]
+        item_list = [item_name]
+        # new_budget_entity = Budget(expenses = the_expenses,
+        #                            description = the_des,
+        #                            expense_amount = the_amount,
+        #                            )
+        # new_budget_entity.put()
+        # the_total+=int(the_amount)
+        #
+
+        if(int(the_counter)!=1):
+            for i in range(1,int(the_counter)+1):
+                price2= self.request.get('myInputs['+str(i)+']')
+                item_name2=self.request.get('describe['+str(i)+']')
+                # the_expenses2=self.request.get("drop["+str(i)+"]")
+                # new_budget_entity2 = Budget(expenses = the_expenses2,
+                #                               description = the_des2,
+                #                               expense_amount = the_amount2,
+                #                               )
+                price_list.append(price2)
+                item_list.append(item_name2)
+                # new_budget_entity2.put()
+                # the_total+=int(the_amount2)
+
+        # new_savings_entity= Savings(savingType=the_saving_type,
+        #                             money_being_saved=the_money_being_saved
+        #                             )
+        # new_savings_entity.put()
+        # if(new_savings_entity.savingType=="savingPerMonth"):
+        #         the_total+=int(new_savings_entity.money_being_saved)
+        new_wishlist = Wishlist(item_name = item_list, item_price = price_list)
+        new_wishlist.put()
+
+
+        # budget_list = Budget.query().fetch()
+        # the_total=int(the_income)-the_total
+        # the_string_total=str(the_total)
+        # new_total_entity= Total(total_amount=the_string_total)
+        # new_total_entity.put()
+
+        self.response.write(wish_template.render({'listofitems' : new_wishlist.item_name,
+                                                  'listofprices' : new_wishlist.item_price,
+                                                   }))
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/expenses", ExpensePage),
     ("/budget.html", BudgetPage),
-    ("/budget_confir.html", budgetConfirmPage)
+    ("/budget_confir.html", budgetConfirmPage),
+    ("/add_wishlist", WishAddPage),
+    ("/wishlist.html", WishlistPage),
 
 ], debug=True)

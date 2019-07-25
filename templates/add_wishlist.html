@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expenses</title>
+  <link rel="stylesheet" href="../style/expenses_style.css">
+</head>
+<body>
+<h1><center>Wishlist Adder<center></h1>
+<form method="post" action="/wishlist.html">
+      <div id="boxes">
+        <h2>Add stuff to the wishlist:</h2>
+        <div id="individual_divs">
+        <h3>Item Name<br><input id ="destext" type="text" name = "inserted_item_name" placeholder="Add Item Name" value=""></h3>
+        <h3>Price <br> $<input id="expense_amount" type="number" name="inserted_price" placeholder="0.00" step="0.01" value=""> <button type="button" id="add">+</button></h3>
+
+    </div>
+    </div>
+    <div>
+      <input id ="submit" type="submit" value="Submit">
+
+          <input type='hidden' id="counter_input" name='counter' value='1'>
+    </form>
+<script src="../style/wishlist.js"></script>
+</body>
+</html>
