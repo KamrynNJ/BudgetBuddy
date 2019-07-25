@@ -75,10 +75,12 @@ class BudgetPage(webapp2.RequestHandler):
         income_all=Income.query().fetch()
         total_all=Total.query().fetch()
         saving_all=Savings.query().fetch()
+        wishlist_list=Wishlist.query().fetch()
         self.response.write(budget_template.render({'budget_info': budget_all,
                                                     'income_info':income_all[0],
                                                     'total_info': total_all[0],
-                                                    'saving_info':saving_all[0]}))
+                                                    'saving_info':saving_all[0],
+                                                    'wishlist_info': wishlist_list}))
 
 
 class budgetConfirmPage(webapp2.RequestHandler):
@@ -107,7 +109,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
         new_income_entity.put()
 
 
-        if(int(the_counter)!=1):
+        if(int(the_counter)!=0):
             for i in range(1,int(the_counter)+1):
                 the_amount2= self.request.get('myInputs['+str(i)+']')
                 the_des2=self.request.get('describe['+str(i)+']')
@@ -124,7 +126,9 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                     )
         new_savings_entity.put()
         if(new_savings_entity.savingType=="savingPerMonth"):
-                the_total+=int(new_savings_entity.money_being_saved)
+            the_total+=int(new_savings_entity.money_being_saved)
+
+
 
 
 
@@ -157,7 +161,11 @@ class WishlistPage(webapp2.RequestHandler):
         price_list = []
         item_list = []
 
-        if(int(the_counter)!=1):
+        price= self.request.get('myInputs[0]')
+        item_name=self.request.get('describe[0]')
+        price_list.append(price)
+        item_list.append(item_name)
+        if(int(the_counter)!=0):
             for i in range(1,int(the_counter)+1):
                 price2= self.request.get('myInputs['+str(i)+']')
                 item_name2=self.request.get('describe['+str(i)+']')

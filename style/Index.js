@@ -1,6 +1,7 @@
 const addButton= document.querySelector('#add');
 
-var counter = 1;
+var counter = document.getElementById("counter_input").value;
+counter++;
 var limit = 10;
 function addInput(boxes){
      if (counter == limit)  {
