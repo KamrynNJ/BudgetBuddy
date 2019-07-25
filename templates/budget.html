@@ -6,22 +6,19 @@
 </head>
 <body>
   <h1>Budget Overview</h1>
-<<<<<<< HEAD
   <h3><center>Here's your inputed information</center></h3>
 
   <br>
 
-    <h3>Income: ${{budget_info.income}}</h3>
-    <h3>Expense: {{budget_info.expenses}}</h3>
-    <p>Amount: ${{budget_info.expense_amount}}</p>
-    <p>Description: {{budget_info.description}}</p>
+    <h3>Income: ${{income_info.income}}</h3>
 
-
-=======
-  <h3> Currently Entered Income: <span class= money> {{bud_list[0].income}} </span></h3>
-  <h3> Currently Entered Expenses: <span class = expenses> {{bud_list[0].expense_amount}} </span>
-  <h3> Money Remaining After Expenses: <span class= money> </span></h3>
->>>>>>> 74bf5b3e3584d07951d2cb2cef90e820a1e6c6dd
+    {% for each_blog in budget_info %}
+      <h3>Expense: {{each_blog.expenses}}</h3>
+      <p>Amount: ${{each_blog.expense_amount}}</p>
+      <p>Description: {{each_blog.description}}</p>
+    {% endfor %}
+    <br>
+  <h3> Money Remaining After Expenses: <span class= money>{{total_info.total_amount}} </span></h3>
   <br>
   <p>
     How would you like to save your money?
