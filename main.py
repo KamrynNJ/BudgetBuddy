@@ -149,15 +149,8 @@ class WishlistPage(webapp2.RequestHandler):
         the_counter=self.request.get("counter")
 
 
-        price_list = [price]
-        item_list = [item_name]
-        # new_budget_entity = Budget(expenses = the_expenses,
-        #                            description = the_des,
-        #                            expense_amount = the_amount,
-        #                            )
-        # new_budget_entity.put()
-        # the_total+=int(the_amount)
-        #
+        price_list = []
+        item_list = []
 
         if(int(the_counter)!=1):
             for i in range(1,int(the_counter)+1):
