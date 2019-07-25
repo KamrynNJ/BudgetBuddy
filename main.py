@@ -21,11 +21,15 @@ class Income(ndb.Model):
     income = ndb.StringProperty(required=True)
 class Total(ndb.Model):
     total_amount = ndb.StringProperty(required=True)
-
+class Wishlist(ndb.Model):
+    item_name = ndb.StringProperty(repeated=True)
+    item_price = ndb.StringProperty(repeated=True)
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
-    user_id = ndb.StringProperty(required = True)
-    User_budget = ndb.KeyProperty(Budget, repeated=False)
+    # user_id = ndb.StringProperty(required = True)
+    user_budget = ndb.KeyProperty(Budget, repeated=True)
+    user_income = ndb.KeyProperty(Income, repeated=False)
+
 
 
 class MainPage(webapp2.RequestHandler):
@@ -48,7 +52,7 @@ class MainPage(webapp2.RequestHandler):
             'login_url': login_url
             }
             self.response.write(maintemp.render(login_html_element))
-        
+
 class ExpensePage(webapp2.RequestHandler):
     def get(self):
         #This is where we will ask the user to input monthly income and expenses
