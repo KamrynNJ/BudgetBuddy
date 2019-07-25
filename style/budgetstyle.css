@@ -10,3 +10,6 @@ h1 {
 .expenses {
   color: red;
 }
+#savingType{
+  width: 200px;
+}
