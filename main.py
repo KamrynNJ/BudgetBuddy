@@ -50,6 +50,12 @@ class MainPage(webapp2.RequestHandler):
             'logout_link_html': logout_link_html,
             'logInCheck': "loggedIn",
             }
+            is_user = User.query().filter(User.email == email_address).get()
+            if is_user:
+                print("user in database")
+            else:
+                new_user = User(email = user.nickname())
+                new_user.put()
             self.response.write(maintemp.render(logout_html_element))
         else:
             self.response.write("You're not logged in - please do so.")
