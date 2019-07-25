@@ -10,6 +10,19 @@ h1 {
 .expenses {
   color: red;
 }
+
+body {
+  background-color: deepskyblue;
+}
+
+.budgetInfo {
+  text-align: center;
+}
+
+#budgetHeading {
+  justify-content: space-between;
+  display: flex;
+
 #savingType{
   width: 200px;
 }
