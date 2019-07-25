@@ -24,7 +24,6 @@ class Income(ndb.Model):
     income = ndb.StringProperty(required=True)
 class Total(ndb.Model):
     total_amount = ndb.StringProperty(required=False)
-    total_wishlist_amount=ndb.StringProperty(required=False)
 class Wishlist(ndb.Model):
     item_name = ndb.StringProperty(repeated=True)
     item_price = ndb.StringProperty(repeated=True)
@@ -139,7 +138,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
 
         budget_list = Budget.query().fetch()
         wishlist_list = Wishlist.query().fetch()
-        the_total=int(the_income)-the_total
+        # the_total=int(the_income)-the_total
         # the_string_total=str(the_total)
         # new_total_entity= Total(total_amount=the_string_total,
         #                         total_wishlist_amount='40')
@@ -150,11 +149,13 @@ class budgetConfirmPage(webapp2.RequestHandler):
         else:
 
             m_t_s=int(wishlist_list[0].the_wishlist_total_amount)/int(new_savings_entity.money_being_saved)
+            the_total+=m_t_s
             new_savings_entity.saved_amount=str(m_t_s)
             new_savings_entity.put()
+        the_total=int(the_income)-the_total
         the_string_total=str(the_total)
         new_total_entity= Total(total_amount=the_string_total,
-                                total_wishlist_amount='40')
+                                )
         new_total_entity.put()
 
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity,
