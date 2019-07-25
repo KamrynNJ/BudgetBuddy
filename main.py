@@ -31,8 +31,24 @@ class User(ndb.Model):
 class MainPage(webapp2.RequestHandler):
     def get(self):
         # comment_list = Comment.query().fetch()
+        user = users.get_current_user()
         maintemp = the_jinja_env.get_template("templates/index.html")
-        self.response.write(maintemp.render())
+        if user:
+            # email_address = user_nickname()
+            self.response.write("You're logged in!")
+            logout_link_html = (users.create_logout_url('/'))
+            logout_html_element = {
+            'logout_link_html': logout_link_html,
+            }
+            self.response.write(maintemp.render(logout_html_element))
+        else:
+            self.response.write("You're not logged in - please do so.")
+            login_url = users.create_login_url('/')
+            login_html_element = {
+            'login_url': login_url
+            }
+            self.response.write(maintemp.render(login_html_element))
+        
 class ExpensePage(webapp2.RequestHandler):
     def get(self):
         #This is where we will ask the user to input monthly income and expenses
