@@ -32,6 +32,9 @@ input{
 select{
   height: 35px;
 }
+#savingType{
+  width: 200px;
+}
 #boxes1 {
   width: 95.25%;
   border-radius: 10px;
