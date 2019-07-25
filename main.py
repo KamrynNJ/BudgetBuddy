@@ -134,13 +134,18 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                                    'income_info': new_income_entity,
                                                    'total_info': new_total_entity,
                                                    'saving_info': new_savings_entity}))
-
+class WishAddPage(webapp2.RequestHandler):
+    def get(self):
+        #This is where we will ask the user to input monthly income and expenses
+        expense_template = the_jinja_env.get_template("templates/add_wishlist.html")
+        self.response.write(expense_template.render())
 
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/expenses", ExpensePage),
     ("/budget.html", BudgetPage),
-    ("/budget_confir.html", budgetConfirmPage)
+    ("/budget_confir.html", budgetConfirmPage),
+    ("/add_wishlist", WishAddPage)
 
 ], debug=True)
