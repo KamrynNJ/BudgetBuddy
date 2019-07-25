@@ -40,7 +40,7 @@
   {% if saving_info.savingType=="savingPerMonth" %}
     <h3>Your decided to save ${{saving_info.money_being_saved}}</h3>
   {%else%}
-    <h3>Based on your wishlist you should save ${{saving_info.money_being_saved}} for x amount of months.</h3>
+    <h3>Based on your wishlist you should save ${{saving_info.saved_amount}} for {{saving_info.money_being_saved}} amount of months.</h3>
   {% endif %}
   <br>
 
