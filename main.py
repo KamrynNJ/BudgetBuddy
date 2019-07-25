@@ -182,14 +182,10 @@ class WishlistPage(webapp2.RequestHandler):
         price_list = []
         item_list = []
 
-        price= self.request.get('myInputs[0]')
-        item_name=self.request.get('describe[0]')
-        price_list.append(price)
-        item_list.append(item_name)
-        the_wishlist_total+=int(price)
+
 
         if(int(the_counter)!=0):
-            for i in range(1,int(the_counter)+1):
+            for i in range(0,int(the_counter)+1):
                 price2= self.request.get('myInputs['+str(i)+']')
                 item_name2=self.request.get('describe['+str(i)+']')
                 # the_expenses2=self.request.get("drop["+str(i)+"]")
