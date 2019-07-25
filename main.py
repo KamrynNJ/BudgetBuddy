@@ -33,7 +33,7 @@ class User(ndb.Model):
     # user_id = ndb.StringProperty(required = True)
     user_budget = ndb.KeyProperty(Budget, repeated=True)
     user_income = ndb.KeyProperty(Income, repeated=False)
-
+    user_wishlist = ndb.KeyProperty(Wishlist, repeated=False, required=False)
 
 
 class MainPage(webapp2.RequestHandler):
@@ -42,13 +42,13 @@ class MainPage(webapp2.RequestHandler):
         user = users.get_current_user()
         maintemp = the_jinja_env.get_template("templates/index.html")
         if user:
-            # email_address = user_nickname()
+            email_address = user.nickname()
             self.response.write("You're logged in!")
 
             logout_link_html = (users.create_logout_url('/'))
             logout_html_element = {
             'logout_link_html': logout_link_html,
-            'logInCheck': "loggedIn"
+            'logInCheck': "loggedIn",
             }
             self.response.write(maintemp.render(logout_html_element))
         else:
@@ -64,9 +64,12 @@ class ExpensePage(webapp2.RequestHandler):
     def get(self):
         #This is where we will ask the user to input monthly income and expenses
         expense_template = the_jinja_env.get_template("templates/expenses.html")
-        self.response.write(expense_template.render())
         user = users.get_current_user()
-
+        email_address = user.nickname()
+        nameGenerator = {
+        'email_address': email_address,
+        }
+        self.response.write(expense_template.render(nameGenerator))
 
 class BudgetPage(webapp2.RequestHandler):
     def get(self):
