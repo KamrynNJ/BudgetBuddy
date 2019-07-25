@@ -138,7 +138,10 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                               description = the_des2,
                                               expense_amount = the_amount2,
                                               )
-                new_budget_entity2.put()
+                new_budget_entity_key2 = new_budget_entity2.put()
+                current_user.user_budget.append(new_budget_entity_key2)
+                current_user.put()
+                print (current_user)
                 the_total+=int(the_amount2)
 
         new_savings_entity= Savings(savingType=the_saving_type,
