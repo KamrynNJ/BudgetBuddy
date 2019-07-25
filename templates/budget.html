@@ -5,8 +5,20 @@
   <link rel="stylesheet" href="../style/budgetstyle.css">
 </head>
 <body>
+
+  <div class="dropdown">
+    <img id="hamburger_icon" src="https://img.icons8.com/carbon-copy/2x/menu.png"
+        alt="dropdown_button_image"style="width:100px;height:100px;"/>
+    <div class="dropdown_content">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </div>
+
 <div id="budgetHeading">
   <img src="http://bestanimations.com/Money/Dollars/dollar-sign-symbol-22.gif" alt="money-rotating-gif">
+
   <h1>Budget Overview</h1>
   <img src="http://bestanimations.com/Money/Dollars/dollar-sign-symbol-22.gif" alt="money-rotating-gif">
 </div>
@@ -25,18 +37,9 @@
     <br>
   <h3> Money Remaining After Expenses: <span class= money>{{total_info.total_amount}} </span></h3>
 </div>
-
+  <h3>Your decided to save ${{saving_info.money_being_saved}}</h3>
   <br>
-  <p>
-    How would you like to save your money?
-    <form>
-      <input type="radio" name="savingType" value="savingPerMonth"> Saving $__ Every Month<br>
-      <input type="radio" name="savingType" value="savingForSetMonths"> Saving Money for __ months<br>
-      <span id="savingTypeDisplay"><input type="text" name="savingType" value=""></span>
-      <br>
-      <input id= "submitButton "type="submit" value="Submit">
-    </form>
-  </p>
+
 <script src="../Index.js"></script>
 </body>
 </html>
