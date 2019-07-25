@@ -5,7 +5,15 @@
   <link rel="stylesheet" href="../style/budgetstyle.css">
 </head>
 <body>
-
+  <div class="dropdown">
+    <img id="hamburger_icon" src="https://img.icons8.com/carbon-copy/2x/menu.png"
+        alt="dropdown_button_image"style="width:100px;height:100px;"/>
+    <div class="dropdown_content">
+      <a href="/add_wishlist">Add a Wishlist</a>
+      <a href="/budget.html">Budget Page</a>
+      <a href="#">Link 3</a>
+    </div>
+  </div>
 
 
 
@@ -19,7 +27,7 @@
     <h3>Name: {{listofitems[x]}}        Price: {{listofprices[x]}}</h3>
     <br>
     {% endfor %}
-    <h3>You need ${{wishlist_total_info.total_wishlist_amount}} to get all of this</h3>
+    <h3>You need ${{wishlist_total_info}} to get all of this</h3>
     <!-- {% for item in listofitems %}
       <h3>{{item}}</h3>
     {% endfor %}
