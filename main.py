@@ -16,7 +16,10 @@ class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
     expense_amount=ndb.StringProperty(required=True)
-
+class Savings(ndb.Model):
+    savingType=ndb.StringProperty(required=True)
+    money_being_saved=ndb.StringProperty(required=True)
+    saved_amount=ndb.StringProperty(required=False)
 class Income(ndb.Model):
     income = ndb.StringProperty(required=True)
 class Total(ndb.Model):
@@ -46,9 +49,11 @@ class BudgetPage(webapp2.RequestHandler):
         budget_all=Budget.query().fetch()
         income_all=Income.query().fetch()
         total_all=Total.query().fetch()
+        saving_all=Savings.query().fetch()
         self.response.write(budget_template.render({'budget_info': budget_all,
                                                     'income_info':income_all[0],
-                                                    'total_info': total_all[0]}))
+                                                    'total_info': total_all[0],
+                                                    'saving_info':saving_all[0]}))
 
 
 class budgetConfirmPage(webapp2.RequestHandler):
@@ -61,6 +66,8 @@ class budgetConfirmPage(webapp2.RequestHandler):
         the_expenses=self.request.get("dropdown")
         the_income=self.request.get("income_added")
         the_counter=self.request.get("counter")
+        the_saving_type=self.request.get("savings_set")
+        the_money_being_saved=self.request.get("savingType")
 
 
 
@@ -87,6 +94,13 @@ class budgetConfirmPage(webapp2.RequestHandler):
                 new_budget_entity2.put()
                 the_total+=int(the_amount2)
 
+        new_savings_entity= Savings(savingType=the_saving_type,
+                                    money_being_saved=the_money_being_saved
+                                    )
+        new_savings_entity.put()
+        if(new_savings_entity.savingType=="savingPerMonth"):
+                the_total+=int(new_savings_entity.money_being_saved)
+
 
 
         budget_list = Budget.query().fetch()
@@ -98,7 +112,8 @@ class budgetConfirmPage(webapp2.RequestHandler):
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity,
                                                    'budget_info2': budget_list,
                                                    'income_info': new_income_entity,
-                                                   'total_info': new_total_entity}))
+                                                   'total_info': new_total_entity,
+                                                   'saving_info': new_savings_entity}))
 
 
 
