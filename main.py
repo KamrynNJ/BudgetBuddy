@@ -16,14 +16,12 @@ class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
     expense_amount=ndb.StringProperty(required=True)
-<<<<<<< HEAD
+
 class Income(ndb.Model):
     income = ndb.StringProperty(required=True)
 class Total(ndb.Model):
     total_amount = ndb.StringProperty(required=True)
-=======
 
->>>>>>> ae0595ffaf59dbab35855b91d6dc0676bdd5613a
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
     user_id = ndb.StringProperty(required = True)
