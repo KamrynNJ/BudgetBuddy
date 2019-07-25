@@ -1,6 +1,7 @@
 h1 {
   text-align: center;
   color:green;
+  font-size: 65px;
 }
 
 .money{
@@ -19,13 +20,37 @@ body {
   text-align: center;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown:hover .dropdown_content {
+  display: block;
+}
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown_content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown_content a:hover {background-color: #f1f1f1}
+
 #budgetHeading {
   justify-content: space-between;
   display: flex;
+  margin-left: 200px;
+  margin-right: 200px;
 
-#savingType{
-  width: 200px;
-}
-#hamburger_icon{
-  
+
+button{
+  background-color: deepskyblue;
+
 }
