@@ -61,3 +61,14 @@ button {
   margin-left: 600px;
   justify-content: space-evenly;
 }
+
+#logInPlease {
+  font-size: 20pt;
+}
+
+#logInPleaseDiv {
+  background-color: lightgrey;
+  margin: auto;
+  border-radius: 15px;
+  padding: 5% 5% 5% 5%;
+}
