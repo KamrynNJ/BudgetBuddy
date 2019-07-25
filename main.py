@@ -50,12 +50,6 @@ class MainPage(webapp2.RequestHandler):
             'logout_link_html': logout_link_html,
             'logInCheck': "loggedIn",
             }
-            is_user = User.query().filter(User.email == email_address).get()
-            if is_user:
-                print("user in database")
-            else:
-                new_user = User(email = user.nickname())
-                new_user.put()
             self.response.write(maintemp.render(logout_html_element))
         else:
             self.response.write("You're not logged in - please do so.")
@@ -112,21 +106,11 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                    description = the_des,
                                    expense_amount = the_amount,
                                    )
-        new_budget_entity_key = new_budget_entity.put()
-        user = users.get_current_user()
-        current_user = User.query().filter(User.email == user.nickname()).get()
-        # new_budget_entity_key.get()
-        current_user.user_budget.append(new_budget_entity_key)
+        new_budget_entity.put()
         the_total+=int(the_amount)
 
         new_income_entity= Income(income=the_income)
-        new_income_entity_key = new_income_entity.put()
-        current_user.user_income = new_income_entity_key
-        current_user.put()
-        # print (current_user)
-        # user_income_key = current_user.user_income
-        # my_income = user_income_key.get()
-        # print(my_income.income)
+        new_income_entity.put()
 
 
         if(int(the_counter)!=0):
@@ -138,10 +122,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                               description = the_des2,
                                               expense_amount = the_amount2,
                                               )
-                new_budget_entity_key2 = new_budget_entity2.put()
-                current_user.user_budget.append(new_budget_entity_key2)
-                current_user.put()
-                # print (current_user)
+                new_budget_entity2.put()
                 the_total+=int(the_amount2)
 
         new_savings_entity= Savings(savingType=the_saving_type,
