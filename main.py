@@ -24,10 +24,10 @@ class Income(ndb.Model):
     income = ndb.StringProperty(required=True)
 class Total(ndb.Model):
     total_amount = ndb.StringProperty(required=False)
-    total_wishlist_amount=ndb.StringProperty(required=False)
 class Wishlist(ndb.Model):
     item_name = ndb.StringProperty(repeated=True)
     item_price = ndb.StringProperty(repeated=True)
+    total_wishlist_amount=ndb.StringProperty(required=True)
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
     # user_id = ndb.StringProperty(required = True)
@@ -130,12 +130,6 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                     )
         new_savings_entity.put()
 
-
-
-
-
-
-
         budget_list = Budget.query().fetch()
         the_total=int(the_income)-the_total
         the_string_total=str(the_total)
@@ -144,7 +138,9 @@ class budgetConfirmPage(webapp2.RequestHandler):
         new_total_entity.put()
 
         if(new_savings_entity.savingType=="savingPerMonth"):
-            the_total+=int(new_savings_entity.money_being_saved)
+            the_total-=int(new_savings_entity.money_being_saved)
+            new_total_entity.total_amount=str(the_total)
+            new_total_entity.put()
         else:
             rec=int(new_income_entity.income)*.2
             m_t_s=int(new_total_entity.total_wishlist_amount)/rec
@@ -200,12 +196,11 @@ class WishlistPage(webapp2.RequestHandler):
         # new_savings_entity.put()
         # if(new_savings_entity.savingType=="savingPerMonth"):
         #         the_total+=int(new_savings_entity.money_being_saved)
-        new_wishlist = Wishlist(item_name = item_list, item_price = price_list)
+        new_wishlist = Wishlist(item_name = item_list, item_price = price_list,total_wishlist_amount= str(the_wishlist_total))
         new_wishlist.put()
 
         the_string_wishlist_total=str(the_wishlist_total)
-        new_total_entity= Total(total_wishlist_amount=the_string_wishlist_total)
-        new_total_entity.put()
+
 
         # budget_list = Budget.query().fetch()
         # the_total=int(the_income)-the_total
@@ -215,7 +210,7 @@ class WishlistPage(webapp2.RequestHandler):
 
         self.response.write(wish_template.render({'listofitems' : new_wishlist.item_name,
                                                   'listofprices' : new_wishlist.item_price,
-                                                  'wishlist_total_info': new_total_entity
+                                                  'wishlist_total_info': new_wishlist.total_wishlist_amount
                                                    }))
 
 app = webapp2.WSGIApplication([
