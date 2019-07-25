@@ -140,10 +140,10 @@ class budgetConfirmPage(webapp2.RequestHandler):
         budget_list = Budget.query().fetch()
         wishlist_list = Wishlist.query().fetch()
         the_total=int(the_income)-the_total
-        the_string_total=str(the_total)
-        new_total_entity= Total(total_amount=the_string_total,
-                                total_wishlist_amount='40')
-        new_total_entity.put()
+        # the_string_total=str(the_total)
+        # new_total_entity= Total(total_amount=the_string_total,
+        #                         total_wishlist_amount='40')
+        # new_total_entity.put()
 
         if(new_savings_entity.savingType=="savingPerMonth"):
             the_total+=int(new_savings_entity.money_being_saved)
@@ -152,6 +152,10 @@ class budgetConfirmPage(webapp2.RequestHandler):
             m_t_s=int(wishlist_list[0].the_wishlist_total_amount)/int(new_savings_entity.money_being_saved)
             new_savings_entity.saved_amount=str(m_t_s)
             new_savings_entity.put()
+        the_string_total=str(the_total)
+        new_total_entity= Total(total_amount=the_string_total,
+                                total_wishlist_amount='40')
+        new_total_entity.put()
 
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity,
                                                    'budget_info2': budget_list,
