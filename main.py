@@ -89,7 +89,7 @@ class BudgetPage(webapp2.RequestHandler):
 
 class budgetConfirmPage(webapp2.RequestHandler):
     def post(self):
-        the_total=0;
+        the_total=0.0;
 
         blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
         the_amount= self.request.get('amount')
@@ -107,7 +107,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                    expense_amount = the_amount,
                                    )
         new_budget_entity.put()
-        the_total+=int(the_amount)
+        the_total+=float(the_amount)
 
         new_income_entity= Income(income=the_income)
         new_income_entity.put()
@@ -123,7 +123,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                               expense_amount = the_amount2,
                                               )
                 new_budget_entity2.put()
-                the_total+=int(the_amount2)
+                the_total+=float(the_amount2)
 
         new_savings_entity= Savings(savingType=the_saving_type,
                                     money_being_saved=the_money_being_saved
@@ -145,14 +145,14 @@ class budgetConfirmPage(webapp2.RequestHandler):
         # new_total_entity.put()
 
         if(new_savings_entity.savingType=="savingPerMonth"):
-            the_total+=int(new_savings_entity.money_being_saved)
+            the_total+=float(new_savings_entity.money_being_saved)
         else:
 
             m_t_s=int(wishlist_list[0].the_wishlist_total_amount)/int(new_savings_entity.money_being_saved)
             the_total+=m_t_s
             new_savings_entity.saved_amount=str(m_t_s)
             new_savings_entity.put()
-        the_total=int(the_income)-the_total
+        the_total=float((the_income))-the_total
         the_string_total=str(the_total)
         new_total_entity= Total(total_amount=the_string_total,
                                 )
