@@ -43,16 +43,19 @@ class MainPage(webapp2.RequestHandler):
         if user:
             # email_address = user_nickname()
             self.response.write("You're logged in!")
+
             logout_link_html = (users.create_logout_url('/'))
             logout_html_element = {
             'logout_link_html': logout_link_html,
+            'logInCheck': "loggedIn"
             }
             self.response.write(maintemp.render(logout_html_element))
         else:
             self.response.write("You're not logged in - please do so.")
             login_url = users.create_login_url('/')
             login_html_element = {
-            'login_url': login_url
+            'login_url': login_url,
+            'logInCheck': "loggedOut"
             }
             self.response.write(maintemp.render(login_html_element))
 
@@ -61,6 +64,8 @@ class ExpensePage(webapp2.RequestHandler):
         #This is where we will ask the user to input monthly income and expenses
         expense_template = the_jinja_env.get_template("templates/expenses.html")
         self.response.write(expense_template.render())
+        user = users.get_current_user()
+
 
 class BudgetPage(webapp2.RequestHandler):
     def get(self):

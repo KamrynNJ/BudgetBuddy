@@ -16,7 +16,16 @@
   <br>
   <br>
   <br>
-    <button onclick="window.location.href = '/expenses';" type="button">START</button>
+    {% if logInCheck == "loggedIn" %}
+      <button onclick="window.location.href = '/expenses';" type="button">START</button>
+    {% else %}
+      <button onclick="window.location.href = '/';" type="button">START</button>
+      <br>
+      <br>
+<div id="logInPleaseDiv">
+      <p id=logInPlease>You're not logged in - please do so before continuing.</p>
+    {% endif %}
+  </div>
   </div>
 
 </body>
