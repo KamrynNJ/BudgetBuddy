@@ -32,7 +32,7 @@ class User(ndb.Model):
     # user_id = ndb.StringProperty(required = True)
     user_budget = ndb.KeyProperty(Budget, repeated=True)
     user_income = ndb.KeyProperty(Income, repeated=False)
-
+    user_wishlist = ndb.KeyProperty(Wishlist, repeated=False, required=False)
 
 
 class MainPage(webapp2.RequestHandler):
