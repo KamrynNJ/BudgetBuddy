@@ -148,7 +148,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
             the_total+=float(new_savings_entity.money_being_saved)
         else:
 
-            m_t_s=int(wishlist_list[0].the_wishlist_total_amount)/int(new_savings_entity.money_being_saved)
+            m_t_s=float(wishlist_list[0].the_wishlist_total_amount)/float(new_savings_entity.money_being_saved)
             the_total+=m_t_s
             new_savings_entity.saved_amount=str(m_t_s)
             new_savings_entity.put()
@@ -184,7 +184,7 @@ class WishlistPage(webapp2.RequestHandler):
 
 
 
-        if(int(the_counter)!=0):
+        if(int(the_counter)!=10):
             for i in range(0,int(the_counter)+1):
                 price2= self.request.get('myInputs['+str(i)+']')
                 item_name2=self.request.get('describe['+str(i)+']')
@@ -196,7 +196,7 @@ class WishlistPage(webapp2.RequestHandler):
                 price_list.append(price2)
                 item_list.append(item_name2)
                 # new_budget_entity2.put()
-                the_wishlist_total+=int(price2)
+                the_wishlist_total+=float(price2)
 
         # new_savings_entity= Savings(savingType=the_saving_type,
         #                             money_being_saved=the_money_being_saved
