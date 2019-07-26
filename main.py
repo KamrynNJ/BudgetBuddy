@@ -34,6 +34,8 @@ class User(ndb.Model):
     user_budget = ndb.KeyProperty(Budget, repeated=True)
     user_income = ndb.KeyProperty(Income, repeated=False)
     user_wishlist = ndb.KeyProperty(Wishlist, repeated=False, required=False)
+    user_savings = ndb.KeyProperty(Savings, repeated=False)
+    user_total = ndb.KeyProperty(Total, repeated=False)
 
 
 class MainPage(webapp2.RequestHandler):
