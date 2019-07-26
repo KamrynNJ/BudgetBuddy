@@ -24,18 +24,16 @@ class Income(ndb.Model):
     income = ndb.StringProperty(required=True)
 class Total(ndb.Model):
     total_amount = ndb.StringProperty(required=False)
+    total_wishlist_amount=ndb.StringProperty(required=False)
 class Wishlist(ndb.Model):
     item_name = ndb.StringProperty(repeated=True)
     item_price = ndb.StringProperty(repeated=True)
-    the_wishlist_total_amount=ndb.StringProperty(required=True)
 class User(ndb.Model):
     email = ndb.StringProperty(required = True)
     # user_id = ndb.StringProperty(required = True)
     user_budget = ndb.KeyProperty(Budget, repeated=True)
     user_income = ndb.KeyProperty(Income, repeated=False)
     user_wishlist = ndb.KeyProperty(Wishlist, repeated=False, required=False)
-    user_savings = ndb.KeyProperty(Savings, repeated=False)
-    user_total = ndb.KeyProperty(Total, repeated=False)
 
 
 class MainPage(webapp2.RequestHandler):
@@ -52,12 +50,6 @@ class MainPage(webapp2.RequestHandler):
             'logout_link_html': logout_link_html,
             'logInCheck': "loggedIn",
             }
-            is_user = User.query().filter(User.email == email_address).get()
-            if is_user:
-                print("user in database")
-            else:
-                new_user = User(email = user.nickname())
-                new_user.put()
             self.response.write(maintemp.render(logout_html_element))
         else:
             self.response.write("You're not logged in - please do so.")
@@ -97,10 +89,9 @@ class BudgetPage(webapp2.RequestHandler):
 
 class budgetConfirmPage(webapp2.RequestHandler):
     def post(self):
-        the_total=0.0;
+        the_total=0;
 
         blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
-        negative_template = the_jinja_env.get_template('templates/expenses.html')
         the_amount= self.request.get('amount')
         the_des=self.request.get('description_of_thing')
         the_expenses=self.request.get("dropdown")
@@ -115,21 +106,11 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                    description = the_des,
                                    expense_amount = the_amount,
                                    )
-        new_budget_entity_key = new_budget_entity.put()
-        user = users.get_current_user()
-        current_user = User.query().filter(User.email == user.nickname()).get()
-        # new_budget_entity_key.get()
-        current_user.user_budget.append(new_budget_entity_key)
-        the_total+=float(the_amount)
+        new_budget_entity.put()
+        the_total+=int(the_amount)
 
         new_income_entity= Income(income=the_income)
-        new_income_entity_key = new_income_entity.put()
-        current_user.user_income = new_income_entity_key
-        current_user.put()
-        # print (current_user)
-        # user_income_key = current_user.user_income
-        # my_income = user_income_key.get()
-        # print(my_income.income)
+        new_income_entity.put()
 
 
         if(int(the_counter)!=0):
@@ -141,18 +122,14 @@ class budgetConfirmPage(webapp2.RequestHandler):
                                               description = the_des2,
                                               expense_amount = the_amount2,
                                               )
-                new_budget_entity_key2 = new_budget_entity2.put()
-                current_user.user_budget.append(new_budget_entity_key2)
-                current_user.put()
-                # print (current_user)
-                the_total+=float(the_amount2)
+                new_budget_entity2.put()
+                the_total+=int(the_amount2)
 
         new_savings_entity= Savings(savingType=the_saving_type,
                                     money_being_saved=the_money_being_saved
                                     )
-        new_savings_entity_key = new_savings_entity.put()
-        current_user.user_savings = new_savings_entity_key
-        current_user.put()
+        new_savings_entity.put()
+
 
 
 
@@ -160,37 +137,25 @@ class budgetConfirmPage(webapp2.RequestHandler):
 
 
         budget_list = Budget.query().fetch()
-        wishlist_list = Wishlist.query().fetch()
-        # the_total=int(the_income)-the_total
-        # the_string_total=str(the_total)
-        # new_total_entity= Total(total_amount=the_string_total,
-        #                         total_wishlist_amount='40')
-        # new_total_entity.put()
-
-        if(new_savings_entity.savingType=="savingPerMonth"):
-            the_total+=float(new_savings_entity.money_being_saved)
-        else:
-
-            m_t_s=float(wishlist_list[0].the_wishlist_total_amount)/float(new_savings_entity.money_being_saved)
-            the_total+=m_t_s
-            new_savings_entity.saved_amount=str(m_t_s)
-            new_savings_entity_key = new_savings_entity.put()
-            current_user.user_savings = new_savings_entity_key
-            current_user.put()
-        the_total=float((the_income))-the_total
+        the_total=int(the_income)-the_total
         the_string_total=str(the_total)
         new_total_entity= Total(total_amount=the_string_total,
-                                )
-        new_total_entity_key = new_total_entity.put()
-        current_user.user_total = new_total_entity_key
-        current_user.put()
+                                total_wishlist_amount='40')
+        new_total_entity.put()
+
+        if(new_savings_entity.savingType=="savingPerMonth"):
+            the_total+=int(new_savings_entity.money_being_saved)
+        else:
+            rec=int(new_income_entity.income)*.2
+            m_t_s=int(new_total_entity.total_wishlist_amount)/rec
+            new_savings_entity.money_being_saved=str(m_t_s)
+            new_savings_entity.put()
 
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity,
                                                    'budget_info2': budget_list,
                                                    'income_info': new_income_entity,
                                                    'total_info': new_total_entity,
-                                                   'saving_info': new_savings_entity,
-                                                   'wishlist_info': wishlist_list}))
+                                                   'saving_info': new_savings_entity}))
 class WishAddPage(webapp2.RequestHandler):
     def get(self):
         #This is where we will ask the user to input monthly income and expenses
@@ -209,10 +174,14 @@ class WishlistPage(webapp2.RequestHandler):
         price_list = []
         item_list = []
 
+        price= self.request.get('myInputs[0]')
+        item_name=self.request.get('describe[0]')
+        price_list.append(price)
+        item_list.append(item_name)
+        the_wishlist_total+=int(price)
 
-
-        if(int(the_counter)!=10):
-            for i in range(0,int(the_counter)+1):
+        if(int(the_counter)!=0):
+            for i in range(1,int(the_counter)+1):
                 price2= self.request.get('myInputs['+str(i)+']')
                 item_name2=self.request.get('describe['+str(i)+']')
                 # the_expenses2=self.request.get("drop["+str(i)+"]")
@@ -223,7 +192,7 @@ class WishlistPage(webapp2.RequestHandler):
                 price_list.append(price2)
                 item_list.append(item_name2)
                 # new_budget_entity2.put()
-                the_wishlist_total+=float(price2)
+                the_wishlist_total+=int(price2)
 
         # new_savings_entity= Savings(savingType=the_saving_type,
         #                             money_being_saved=the_money_being_saved
@@ -231,14 +200,12 @@ class WishlistPage(webapp2.RequestHandler):
         # new_savings_entity.put()
         # if(new_savings_entity.savingType=="savingPerMonth"):
         #         the_total+=int(new_savings_entity.money_being_saved)
-        new_wishlist = Wishlist(item_name = item_list, item_price = price_list, the_wishlist_total_amount=str(the_wishlist_total))
-        user = users.get_current_user()
-        current_user = User.query().filter(User.email == user.nickname()).get()
-        new_wishlist_key = new_wishlist.put()
-        current_user.user_wishlist = new_wishlist_key
-        current_user.put()
-        # the_string_wishlist_total=str(the_wishlist_total)
+        new_wishlist = Wishlist(item_name = item_list, item_price = price_list)
+        new_wishlist.put()
 
+        the_string_wishlist_total=str(the_wishlist_total)
+        new_total_entity= Total(total_wishlist_amount=the_string_wishlist_total)
+        new_total_entity.put()
 
         # budget_list = Budget.query().fetch()
         # the_total=int(the_income)-the_total
@@ -248,7 +215,7 @@ class WishlistPage(webapp2.RequestHandler):
 
         self.response.write(wish_template.render({'listofitems' : new_wishlist.item_name,
                                                   'listofprices' : new_wishlist.item_price,
-                                                  'wishlist_total_info': new_wishlist.the_wishlist_total_amount
+                                                  'wishlist_total_info': new_total_entity
                                                    }))
 
 class BarPage(webapp2.RequestHandler):
@@ -258,6 +225,9 @@ class BarPage(webapp2.RequestHandler):
         user = users.get_current_user()
         email_address = user.nickname()
         saving_all=Savings.query().fetch()
+        ###savingType contains vv
+        ###savingForSetMonths or savingPerMonth(already have this code)
+        ###saved_amount is the variable that contains integers for savingForSetMonths
         savingM2 = int(saving_all[0].money_being_saved) * 2
         savingM6 = int(saving_all[0].money_being_saved) * 6
         savingM12 = int(saving_all[0].money_being_saved) * 12
