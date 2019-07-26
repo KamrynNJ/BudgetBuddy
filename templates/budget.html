@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="../style/budgetstyle.css">
 </head>
 <body>
-
+  <link href="https://fonts.googleapis.com/css?family=Homemade+Apple&display=swap" rel="stylesheet">
   <div class="dropdown">
     <img id="hamburger_icon" src="https://img.icons8.com/carbon-copy/2x/menu.png"
         alt="dropdown_button_image"style="width:100px;height:100px;"/>
@@ -13,6 +13,7 @@
       <a href="/add_wishlist">Add a Wishlist</a>
       <a href="/budget.html">Budget Page</a>
       <a href="/bar">Goal Bar</a>
+      <a href ="/expenses">Add Expenses</a>
     </div>
   </div>
 
@@ -36,14 +37,14 @@
     {% endfor %}
     <br>
   <h3> Money Remaining After Expenses: <span class= money>{{total_info.total_amount}} </span></h3>
-</div>
+
   {% if saving_info.savingType=="savingPerMonth" %}
     <h3>Your decided to save ${{saving_info.money_being_saved}}. This has been included in your expenses!</h3>
   {%else%}
     <h3>Based on your wishlist you should save ${{saving_info.saved_amount}} for {{saving_info.money_being_saved}} amount of months.</h3>
   {% endif %}
   <br>
-
+  </div>
 <script src="../Index.js"></script>
 </body>
 </html>
