@@ -149,8 +149,9 @@ class budgetConfirmPage(webapp2.RequestHandler):
         new_savings_entity= Savings(savingType=the_saving_type,
                                     money_being_saved=the_money_being_saved
                                     )
-        new_savings_entity.put()
-
+        new_savings_entity_key = new_savings_entity.put()
+        current_user.user_savings = new_savings_entity_key
+        current_user.put()
 
 
 
@@ -172,12 +173,16 @@ class budgetConfirmPage(webapp2.RequestHandler):
             m_t_s=float(wishlist_list[0].the_wishlist_total_amount)/float(new_savings_entity.money_being_saved)
             the_total+=m_t_s
             new_savings_entity.saved_amount=str(m_t_s)
-            new_savings_entity.put()
+            new_savings_entity_key = new_savings_entity.put()
+            current_user.user_savings = new_savings_entity_key
+            current_user.put()
         the_total=float((the_income))-the_total
         the_string_total=str(the_total)
         new_total_entity= Total(total_amount=the_string_total,
                                 )
-        new_total_entity.put()
+        new_total_entity_key = new_total_entity.put()
+        current_user.user_total = new_total_entity_key
+        current_user.put()
 
         self.response.write(blogs_template.render({'budget_info' : new_budget_entity,
                                                    'budget_info2': budget_list,
@@ -226,8 +231,11 @@ class WishlistPage(webapp2.RequestHandler):
         # if(new_savings_entity.savingType=="savingPerMonth"):
         #         the_total+=int(new_savings_entity.money_being_saved)
         new_wishlist = Wishlist(item_name = item_list, item_price = price_list, the_wishlist_total_amount=str(the_wishlist_total))
-        new_wishlist.put()
-
+        user = users.get_current_user()
+        current_user = User.query().filter(User.email == user.nickname()).get()
+        new_wishlist_key = new_wishlist.put()
+        current_user.user_wishlist = new_wishlist_key
+        current_user.put()
         # the_string_wishlist_total=str(the_wishlist_total)
 
 
