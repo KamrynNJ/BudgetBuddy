@@ -282,7 +282,6 @@ class BarPage(webapp2.RequestHandler):
             saving_all.append(savingM2)
             saving_all.append(savingM6)
             saving_all.append(savingM12)
-            self.response.write("hi")
         if(saving_all[0].savingType=="savingForSetMonths"):
             savingM2 = float(saving_all[0].saved_amount) * 2
             savingM6 = float(saving_all[0].saved_amount) * 6
@@ -290,7 +289,6 @@ class BarPage(webapp2.RequestHandler):
             saving_all.append(savingM2)
             saving_all.append(savingM6)
             saving_all.append(savingM12)
-            self.response.write("the else is running")
 
         ###savingType contains
         ###savingForSetMonths or savingPerMonth(already have this code)
