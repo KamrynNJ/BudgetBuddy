@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="../style/budgetstyle.css">
 </head>
 <body>
-  <link href="https://fonts.googleapis.com/css?family=Homemade+Apple&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
   <div class="dropdown">
     <img id="hamburger_icon" src="https://img.icons8.com/carbon-copy/2x/menu.png"
         alt="dropdown_button_image"style="width:100px;height:100px;"/>
@@ -20,31 +20,35 @@
 <div id="budgetHeading">
   <img src="http://bestanimations.com/Money/Dollars/dollar-sign-symbol-22.gif" alt="money-rotating-gif">
 
-  <h1>Budget Overview</h1>
+  <h1>Budget Report</h1>
   <img src="http://bestanimations.com/Money/Dollars/dollar-sign-symbol-22.gif" alt="money-rotating-gif">
 </div>
 
-  <h3><center>Here's your input information</center></h3>
+
 
   <br>
 
   <div class="budgetInfo">
-    <h3>Income: ${{income_info.income}}</h3>
+    <div id="top_of_page">
+    <h2 id="header"><center>Here's your input information</center></h2>
+  </div>
+    <h3 id="header"><center><u>Income: ${{income_info.income}}</u></center></h3>
     {% for each_blog in budget_info %}
-      <h3>Expense: {{each_blog.expenses}}</h3>
-      <p>Amount: ${{each_blog.expense_amount}}</p>
-      <p>Description: {{each_blog.description}}</p>
+      <h3 class="text_in_div" id="header"><u>Expense: {{each_blog.expenses}}</u></h3>
+      <p class="text_in_div" id="tab" >Amount: ${{each_blog.expense_amount}}</p>
+      <p class="text_in_div" id="tab">Description: {{each_blog.description}}</p>
     {% endfor %}
     <br>
-  <h3> Money Remaining After Expenses: <span class= money>{{total_info.total_amount}} </span></h3>
+  <h3 class="text_in_div" id="header"> Money Remaining After Expenses: <span class= money>{{total_info.total_amount}} </span></h3>
 
   {% if saving_info.savingType=="savingPerMonth" %}
-    <h3>Your decided to save ${{saving_info.money_being_saved}}. This has been included in your expenses!</h3>
+    <h3 class="text_in_div" id="header">Your decided to save ${{saving_info.money_being_saved}}. This has been included in your expenses!</h3>
   {%else%}
-    <h3>Based on your wishlist you should save ${{saving_info.saved_amount}} for {{saving_info.money_being_saved}} amount of months.</h3>
+    <h3 class="text_in_div" id="header">Based on your wishlist you should save ${{saving_info.saved_amount}} for {{saving_info.money_being_saved}} months.</h3>
   {% endif %}
   <br>
   </div>
+
 <script src="../Index.js"></script>
 </body>
 </html>
