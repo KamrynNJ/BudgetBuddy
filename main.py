@@ -236,7 +236,7 @@ class BarPage(webapp2.RequestHandler):
         'saving_info': saving_all[0],
         'savingM2': saving_all[1],
         'savingM6': saving_all[2],
-        'savingM12': saving_all[3]
+        'savingM12': saving_all[3],
         }
         self.response.write(bar_template.render(nameGenerator))
 
