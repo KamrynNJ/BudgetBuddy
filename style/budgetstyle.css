@@ -45,6 +45,7 @@ body {
 .dropdown {
   position: relative;
   display: inline-block;
+    font-family: 'Courgette', cursive;
 }
 .dropdown:hover .dropdown_content {
   display: block;
