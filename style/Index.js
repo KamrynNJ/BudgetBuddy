@@ -16,6 +16,7 @@ function addInput(boxes){
           counter++;
      }
 }
+
 addButton.addEventListener("click",addInput);
 
 /*Below this line is JavaScript for the Budget HTML*/

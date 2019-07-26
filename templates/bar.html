@@ -22,7 +22,11 @@
 
   <div class="barText">
     <p>
+      {% if saving_info.savingType == "savingPerMonth" %}
       <div id="oneMonthSavingDisplay">Savings after 1 month: ${{saving_info.money_being_saved}}</div>
+      {% else %}
+      <div id="oneMonthSavingDisplay">Savings after 1 month: ${{saving_info.saved_amount}}</div>
+      {% endif %}
       <div id="twoMonthSavingDisplay">Savings after 2 months: ${{savingM2}}</div>
       <div id="sixMonthSavingDisplay">Savings after 6 months: ${{savingM6}}</div>
       <div id="twelveMonthSavingDisplay">Savings after 12 months: ${{savingM12}}</div>

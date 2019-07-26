@@ -171,7 +171,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
 
         budget_list = key_2_list(current_user.user_budget)
         # budget_list = Budget.query().fetch()  changed from this to the line before
-        wishlist_list = current_user.user_wishlist
+        wishlist_list = current_user.user_wishlist.get()
         # wishlist_list = Wishlist.query().fetch()  changed from this to the line before
 
         # the_total=int(the_income)-the_total
@@ -271,18 +271,37 @@ class BarPage(webapp2.RequestHandler):
         user = users.get_current_user()
         email_address = user.nickname()
         saving_all=Savings.query().fetch()
-        savingM2 = int(saving_all[0].money_being_saved) * 2
-        savingM6 = int(saving_all[0].money_being_saved) * 6
-        savingM12 = int(saving_all[0].money_being_saved) * 12
-        saving_all.append(savingM2)
-        saving_all.append(savingM6)
-        saving_all.append(savingM12)
+        washlist_all=Wishlist.query().fetch()
+        savingM2 = 0
+        savingM6 = 0
+        savingM12 = 0
+        if(saving_all[0].savingType=="savingPerMonth"):
+            savingM2 = int(saving_all[0].money_being_saved) * 2
+            savingM6 = int(saving_all[0].money_being_saved) * 6
+            savingM12 = int(saving_all[0].money_being_saved) * 12
+            saving_all.append(savingM2)
+            saving_all.append(savingM6)
+            saving_all.append(savingM12)
+            self.response.write("hi")
+        if(saving_all[0].savingType=="savingForSetMonths"):
+            savingM2 = float(saving_all[0].saved_amount) * 2
+            savingM6 = float(saving_all[0].saved_amount) * 6
+            savingM12 = float(saving_all[0].saved_amount) * 12
+            saving_all.append(savingM2)
+            saving_all.append(savingM6)
+            saving_all.append(savingM12)
+            self.response.write("the else is running")
+
+        ###savingType contains
+        ###savingForSetMonths or savingPerMonth(already have this code)
+        ###saved_amount is the variable that contains integers for savingForSetMonths
+
         nameGenerator = {
         'email_address': email_address,
         'saving_info': saving_all[0],
-        'savingM2': saving_all[1],
-        'savingM6': saving_all[2],
-        'savingM12': saving_all[3],
+        'savingM2': savingM2,
+        'savingM6': savingM6,
+        'savingM12': savingM12,
         }
         self.response.write(bar_template.render(nameGenerator))
 
