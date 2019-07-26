@@ -36,7 +36,11 @@ class User(ndb.Model):
     user_wishlist = ndb.KeyProperty(Wishlist, repeated=False, required=False)
     user_savings = ndb.KeyProperty(Savings, repeated=False)
     user_total = ndb.KeyProperty(Total, repeated=False)
-
+def key_2_list(key_list) :
+    real_list = []
+    for key in key_list:
+        real_list.append(key.get())
+    return real_list
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -82,16 +86,23 @@ class ExpensePage(webapp2.RequestHandler):
 class BudgetPage(webapp2.RequestHandler):
     def get(self):
         budget_template = the_jinja_env.get_template("templates/budget.html")
+        user = users.get_current_user()
+        current_user = User.query().filter(User.email == user.nickname()).get()
+        budget_all_test = current_user.user_budget
 
+        tasks = key_2_list(budget_all_test)
         budget_all=Budget.query().fetch()
-        income_all=Income.query().fetch()
-        total_all=Total.query().fetch()
-        saving_all=Savings.query().fetch()
+        income_all = current_user.user_income.get()
+        # income_all=Income.query().fetch()
+        total_all = current_user.user_total.get()
+        # total_all=Total.query().fetch()
+        saving_all = current_user.user_savings.get()
+        # saving_all=Savings.query().fetch()
         # wishlist_list=Wishlist.query().fetch()
-        self.response.write(budget_template.render({'budget_info': budget_all,
-                                                    'income_info':income_all[0],
-                                                    'total_info': total_all[0],
-                                                    'saving_info':saving_all[0],
+        self.response.write(budget_template.render({'budget_info': tasks,
+                                                    'income_info':income_all,
+                                                    'total_info': total_all,
+                                                    'saving_info':saving_all,
                                                     }))
 
 
@@ -157,9 +168,11 @@ class budgetConfirmPage(webapp2.RequestHandler):
 
 
 
+        budget_list = key_2_list(current_user.user_budget)
+        # budget_list = Budget.query().fetch()  changed from this to the line before
+        wishlist_list = current_user.user_wishlist
+        # wishlist_list = Wishlist.query().fetch()  changed from this to the line before
 
-        budget_list = Budget.query().fetch()
-        wishlist_list = Wishlist.query().fetch()
         # the_total=int(the_income)-the_total
         # the_string_total=str(the_total)
         # new_total_entity= Total(total_amount=the_string_total,
@@ -170,7 +183,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
             the_total+=float(new_savings_entity.money_being_saved)
         else:
 
-            m_t_s=float(wishlist_list[0].the_wishlist_total_amount)/float(new_savings_entity.money_being_saved)
+            m_t_s=float(wishlist_list.the_wishlist_total_amount)/float(new_savings_entity.money_being_saved)
             the_total+=m_t_s
             new_savings_entity.saved_amount=str(m_t_s)
             new_savings_entity_key = new_savings_entity.put()
