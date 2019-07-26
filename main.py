@@ -111,6 +111,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
         the_total=0.0;
 
         blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
+        negative_template = the_jinja_env.get_template('templates/expenses.html')
         the_amount= self.request.get('amount')
         the_des=self.request.get('description_of_thing')
         the_expenses=self.request.get("dropdown")
@@ -281,7 +282,7 @@ class BarPage(webapp2.RequestHandler):
         'saving_info': saving_all[0],
         'savingM2': saving_all[1],
         'savingM6': saving_all[2],
-        'savingM12': saving_all[3]
+        'savingM12': saving_all[3],
         }
         self.response.write(bar_template.render(nameGenerator))
 

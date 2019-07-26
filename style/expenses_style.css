@@ -70,3 +70,28 @@ select{
   display: block;
 }
 .dropdown_content a:hover {background-color: #f1f1f1}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: flex-end;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.savingsButtons {
+  height: 80pt;
+  width: 100pt;
+  border-radius: 15px;
+}
+
+.barText {
+  text-align: center;
+  padding-top: 100pt;
+  font-size: 25pt;
+}
+
+#barHeader {
+  text-align: center;
+}

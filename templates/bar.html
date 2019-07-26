@@ -3,28 +3,31 @@
 <head>
   <title>Budget Buddy</title>
   <link rel="stylesheet" href="../style/expenses_style.css">
+  <script src="../style/bar.js"></script>
 </head>
 <body>
 
 
-  <h1>Total Savings & Progress of {{email_address}}</h1>
-  <div id=startButton>
+  <h1 id="barHeader">Total Savings & Progress of {{email_address}}</h1>
   <br>
   <br>
   <br>
 
-    <button onclick="{{}}" type="button" id="oneMonthSavingButton">After 1 month of saving: </button>
-    <button onclick="" type="button" id="oneMonthSavingButton">After 2 month of saving: </button>
-    <button onclick="" type="button" id="oneMonthSavingButton">After 6 month of saving: </button>
-    <button onclick="" type="button" id="oneMonthSavingButton">After 12 month of saving: </button>
-    <p>Savings after one month: {{saving_info.money_being_saved}}
-      Savings after 2 months: {{savingM2}}
-      Savings after 6 months: {{savingM6}}
-      Savings after 12 months: {{savingM12}}
-    </p>
-    <button onclick={{cgfvhbj}}>
+  <div class="flex-container">
+  <button class= "savingsButtons" onclick="showSavingsM1()" type="button" id="oneMonthSavingButton">After 1 month of saving: </button>
+  <button class= "savingsButtons" onclick="showSavingsM2()" type="button" id="twoMonthSavingButton">After 2 month of saving: </button>
+  <button class= "savingsButtons" onclick="showSavingsM6()" type="button" id="sixMonthSavingButton">After 6 month of saving: </button>
+  <button class= "savingsButtons" onclick="showSavingsM12()" type="button" id="twelveMonthSavingButton">After 12 month of saving: </button>
   </div>
 
-<script src="../Index.js"></script>
+  <div class="barText">
+    <p>
+      <div id="oneMonthSavingDisplay">Savings after 1 month: ${{saving_info.money_being_saved}}</div>
+      <div id="twoMonthSavingDisplay">Savings after 2 months: ${{savingM2}}</div>
+      <div id="sixMonthSavingDisplay">Savings after 6 months: ${{savingM6}}</div>
+      <div id="twelveMonthSavingDisplay">Savings after 12 months: ${{savingM12}}</div>
+    </p>
+  </div>
+
 </body>
 </html>
