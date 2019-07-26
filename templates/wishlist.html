@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="../style/budgetstyle.css">
 </head>
 <body>
+  <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
+
   <div class="dropdown">
     <img id="hamburger_icon" src="https://img.icons8.com/carbon-copy/2x/menu.png"
         alt="dropdown_button_image"style="width:100px;height:100px;"/>
@@ -21,14 +23,16 @@
   <br>
 
   <div class="budgetInfo">
+    <div id="top_of_page">
     <h1>Wishlist</h1>
+  </div>
     <!-- {{listofitems}}<br>
     {{listofprices}} -->
     {% for x in range(listofitems|length) %}
-    <h3>Name: {{listofitems[x]}}        Price: {{listofprices[x]}}</h3>
+    <h3 class="text_in_div" id="header"><u>Name:</u> {{listofitems[x]}}        <u>Price:</u> {{listofprices[x]}}</h3>
     <br>
     {% endfor %}
-    <h3>You need ${{wishlist_total_info}} to get all of this</h3>
+    <h3 class="text_in_div" id="header">You need ${{wishlist_total_info}} to get all of this</h3>
     <!-- {% for item in listofitems %}
       <h3>{{item}}</h3>
     {% endfor %}

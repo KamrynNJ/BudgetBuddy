@@ -14,11 +14,32 @@ h1 {
 
 body {
   background-color: deepskyblue;
-  font-family: 'Homemade Apple', cursive;
+  font-family: 'Courgette', cursive;
 }
 
 .budgetInfo {
-  text-align: center;
+  width: 800px;
+  height: auto;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 50px;
+  margin: 0 auto;
+}
+.text_in_div{
+  margin-left: 45px;
+}
+#header{
+  font-size: 30px;
+}
+#top_of_page{
+
+  width: auto;
+  height: auto;
+  border-bottom: 5px solid black;
+}
+#tab{
+  margin-left: 80px;
+  font-size: 25px;
 }
 
 .dropdown {
