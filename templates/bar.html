@@ -3,7 +3,7 @@
 <head>
   <title>Budget Buddy</title>
   <link rel="stylesheet" href="../style/expenses_style.css">
-  <script src="../style/bar.js"></script>
+
 </head>
 <body>
   <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
@@ -26,10 +26,10 @@
   <br>
 
   <div class="flex-container">
-  <button class= "savingsButtons" onclick="showSavingsM1()" type="button" id="oneMonthSavingButton">After 1 month of saving: </button>
-  <button class= "savingsButtons" onclick="showSavingsM2()" type="button" id="twoMonthSavingButton">After 2 month of saving: </button>
-  <button class= "savingsButtons" onclick="showSavingsM6()" type="button" id="sixMonthSavingButton">After 6 month of saving: </button>
-  <button class= "savingsButtons" onclick="showSavingsM12()" type="button" id="twelveMonthSavingButton">After 12 month of saving: </button>
+  <button class= "savingsButtons" onclick="showSavingsM1()" type="button" id="oneMonthSavingButton">Total money after 1 month of saving </button>
+  <button class= "savingsButtons" onclick="showSavingsM2()" type="button" id="twoMonthSavingButton">Total money after 2 months of saving </button>
+  <button class= "savingsButtons" onclick="showSavingsM6()" type="button" id="sixMonthSavingButton">Total money after 6 months of saving </button>
+  <button class= "savingsButtons" onclick="showSavingsM12()" type="button" id="twelveMonthSavingButton">Total money after 12 months of saving </button>
   </div>
 
   <div class="barText">
@@ -44,6 +44,6 @@
       <div id="twelveMonthSavingDisplay">Savings after 12 months: ${{savingM12}}</div>
     </p>
   </div>
-
+<script src="../style/bar.js"></script>
 </body>
 </html>
