@@ -92,6 +92,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
         the_total=0.0;
 
         blogs_template = the_jinja_env.get_template('templates/budget_confir.html')
+        negative_template = the_jinja_env.get_template('templates/expenses.html')
         the_amount= self.request.get('amount')
         the_des=self.request.get('description_of_thing')
         the_expenses=self.request.get("dropdown")
