@@ -269,26 +269,28 @@ class BarPage(webapp2.RequestHandler):
         #This is where we will ask the user to input monthly income and expenses
         bar_template = the_jinja_env.get_template("templates/bar.html")
         user = users.get_current_user()
+        current_user = User.query().filter(User.email == user.nickname()).get()
         email_address = user.nickname()
-        saving_all=Savings.query().fetch()
-        washlist_all=Wishlist.query().fetch()
+        saving_all = current_user.user_savings.get()
+        # saving_all=Savings.query().fetch()
+        # washlist_all=Wishlist.query().fetch()
         savingM2 = 0
         savingM6 = 0
         savingM12 = 0
-        if(saving_all[0].savingType=="savingPerMonth"):
-            savingM2 = int(saving_all[0].money_being_saved) * 2
-            savingM6 = int(saving_all[0].money_being_saved) * 6
-            savingM12 = int(saving_all[0].money_being_saved) * 12
-            saving_all.append(savingM2)
-            saving_all.append(savingM6)
-            saving_all.append(savingM12)
-        if(saving_all[0].savingType=="savingForSetMonths"):
-            savingM2 = float(saving_all[0].saved_amount) * 2
-            savingM6 = float(saving_all[0].saved_amount) * 6
-            savingM12 = float(saving_all[0].saved_amount) * 12
-            saving_all.append(savingM2)
-            saving_all.append(savingM6)
-            saving_all.append(savingM12)
+        if(saving_all.savingType=="savingPerMonth"):
+            savingM2 = int(saving_all.money_being_saved) * 2
+            savingM6 = int(saving_all.money_being_saved) * 6
+            savingM12 = int(saving_all.money_being_saved) * 12
+            # saving_all.append(savingM2)
+            # saving_all.append(savingM6)
+            # saving_all.append(savingM12)
+        if(saving_all.savingType=="savingForSetMonths"):
+            savingM2 = float(saving_all.saved_amount) * 2
+            savingM6 = float(saving_all.saved_amount) * 6
+            savingM12 = float(saving_all.saved_amount) * 12
+            # saving_all.append(savingM2)
+            # saving_all.append(savingM6)
+            # saving_all.append(savingM12)
 
         ###savingType contains
         ###savingForSetMonths or savingPerMonth(already have this code)
@@ -296,7 +298,7 @@ class BarPage(webapp2.RequestHandler):
 
         nameGenerator = {
         'email_address': email_address,
-        'saving_info': saving_all[0],
+        'saving_info': saving_all,
         'savingM2': savingM2,
         'savingM6': savingM6,
         'savingM12': savingM12,
