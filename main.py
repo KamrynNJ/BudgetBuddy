@@ -135,7 +135,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
         current_user = User.query().filter(User.email == user.nickname()).get()
         # new_budget_entity_key.get()
         current_user.user_budget.append(new_budget_entity_key)
-        the_total+=float(the_amount)
+        the_total+=round(float(the_amount), 2)
 
         new_income_entity= Income(income=the_income)
         new_income_entity_key = new_income_entity.put()
@@ -160,7 +160,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
                 current_user.user_budget.append(new_budget_entity_key2)
                 current_user.put()
                 # print (current_user)
-                the_total+=float(the_amount2)
+                the_total+=round(float(the_amount2), 2)
 
         new_savings_entity= Savings(savingType=the_saving_type,
                                     money_being_saved=the_money_being_saved
@@ -185,10 +185,10 @@ class budgetConfirmPage(webapp2.RequestHandler):
         # new_total_entity.put()
 
         if(new_savings_entity.savingType=="savingPerMonth"):
-            the_total+=float(new_savings_entity.money_being_saved)
+            the_total+=round(float(new_savings_entity.money_being_saved), 2)
         else:
 
-            m_t_s=float(wishlist_list.the_wishlist_total_amount)/float(new_savings_entity.money_being_saved)
+            m_t_s=round(float(wishlist_list.the_wishlist_total_amount)/float(new_savings_entity.money_being_saved), 2)
             the_total+=m_t_s
             new_savings_entity.saved_amount=str(m_t_s)
             new_savings_entity_key = new_savings_entity.put()
@@ -284,25 +284,25 @@ class BarPage(webapp2.RequestHandler):
 
         wishlist_for_info=Wishlist.query().fetch()
         if(saving_all.savingType=="savingPerMonth"):
-            savingM2 = float(saving_all.money_being_saved) * 2
-            savingM2_bar=savingM2/float(wishlist_for_info[0].the_wishlist_total_amount)
+            savingM2 = round(float(saving_all.money_being_saved) * 2, 2)
+            savingM2_bar=savingM2/round(float(wishlist_for_info[0].the_wishlist_total_amount), 2)
             savingM2_bar_2=savingM2_bar*100
 
 
-            savingM6 = float(saving_all.money_being_saved) * 6
-            savingM6_bar=savingM6/float(wishlist_for_info[0].the_wishlist_total_amount)
+            savingM6 = round(float(saving_all.money_being_saved) * 6, 2)
+            savingM6_bar=savingM6/round(float(wishlist_for_info[0].the_wishlist_total_amount), 2)
             savingM6_bar_2=savingM6_bar*100
 
-            savingM12 = float(saving_all.money_being_saved) * 12
-            savingM12_bar=savingM12/float(wishlist_for_info[0].the_wishlist_total_amount)
+            savingM12 = round(float(saving_all.money_being_saved) * 12, 2)
+            savingM12_bar=savingM12/round(float(wishlist_for_info[0].the_wishlist_total_amount), 2)
             savingM12_bar_2=savingM12_bar*100
             # saving_all.append(savingM2)
             # saving_all.append(savingM6)
             # saving_all.append(savingM12)
         if(saving_all.savingType=="savingForSetMonths"):
-            savingM2 = float(saving_all.saved_amount) * 2
-            savingM6 = float(saving_all.saved_amount) * 6
-            savingM12 = float(saving_all.saved_amount) * 12
+            savingM2 = round(float(saving_all.saved_amount) * 2, 2)
+            savingM6 = round(float(saving_all.saved_amount) * 6, 2)
+            savingM12 = round(float(saving_all.saved_amount) * 12, 2)
             # saving_all.append(savingM2)
             # saving_all.append(savingM6)
             # saving_all.append(savingM12)
