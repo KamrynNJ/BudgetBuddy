@@ -85,8 +85,26 @@ select{
   height: 80pt;
   width: 100pt;
   border-radius: 15px;
+  display: inline-block;
+  padding: 15px 25px;
+  /* font-size: 24px; */
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
 }
+.savingsButtons:hover {background-color: #3e8e41}
 
+.savingsButtons:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 .barText {
   text-align: center;
   padding-top: 100pt;
