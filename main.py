@@ -344,28 +344,28 @@ class DeletePage(webapp2.RequestHandler):
         user = users.get_current_user()
         current_user = User.query().filter(User.email == user.nickname()).get()
         user_bugdet_only=current_user.user_budget
-
-        for x in wishlist_for_info:
-            wishlist_for_info[wish].key.delete()
-            wish=wish+1
-        for x in budget_for_info:
-            budget_for_info[bud].key.delete()
-            bud=bud+1
-        for x in saving_for_info:
-            saving_for_info[save].key.delete()
-            save=save+1
-        for x in income_for_info:
-            income_for_info[ins].key.delete()
-            ins=ins+1
-        for x in total_for_info:
-            total_for_info[t].key.delete()
-            t=t+1
-        for x in bc_for_info:
-            bc_for_info[bc].key.delete()
-            bc=bc+1
-        for x in bc_for_info:
-            bc_for_info[bc].key.delete()
-            bc=bc+1
+        # 
+        # for x in wishlist_for_info:
+        #     wishlist_for_info[wish].key.delete()
+        #     wish=wish+1
+        # for x in budget_for_info:
+        #     budget_for_info[bud].key.delete()
+        #     bud=bud+1
+        # for x in saving_for_info:
+        #     saving_for_info[save].key.delete()
+        #     save=save+1
+        # for x in income_for_info:
+        #     income_for_info[ins].key.delete()
+        #     ins=ins+1
+        # for x in total_for_info:
+        #     total_for_info[t].key.delete()
+        #     t=t+1
+        # for x in bc_for_info:
+        #     bc_for_info[bc].key.delete()
+        #     bc=bc+1
+        # for x in bc_for_info:
+        #     bc_for_info[bc].key.delete()
+        #     bc=bc+1
         current_user.key.delete()
         self.response.write(detemp.render())
 
