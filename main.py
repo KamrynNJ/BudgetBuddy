@@ -16,6 +16,10 @@ class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
     expense_amount=ndb.StringProperty(required=True)
+class BarChange(ndb.Model):
+    percent2 = ndb.FloatProperty(required=True)
+    percent6 = ndb.FloatProperty(required=True)
+    percent12 = ndb.FloatProperty(required=True)
 class Savings(ndb.Model):
     savingType=ndb.StringProperty(required=True)
     money_being_saved=ndb.StringProperty(required=True)
@@ -190,7 +194,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
             new_savings_entity_key = new_savings_entity.put()
             current_user.user_savings = new_savings_entity_key
             current_user.put()
-        the_total=round(float((the_income))-the_total, 2)
+        the_total=float((the_income))-the_total
         the_string_total=str(the_total)
         new_total_entity= Total(total_amount=the_string_total,
                                 )
@@ -236,7 +240,7 @@ class WishlistPage(webapp2.RequestHandler):
                 price_list.append(price2)
                 item_list.append(item_name2)
                 # new_budget_entity2.put()
-                the_wishlist_total+=round(float(price2), 2)
+                the_wishlist_total+=float(price2)
 
         # new_savings_entity= Savings(savingType=the_saving_type,
         #                             money_being_saved=the_money_being_saved
@@ -269,39 +273,91 @@ class BarPage(webapp2.RequestHandler):
         #This is where we will ask the user to input monthly income and expenses
         bar_template = the_jinja_env.get_template("templates/bar.html")
         user = users.get_current_user()
+        current_user = User.query().filter(User.email == user.nickname()).get()
         email_address = user.nickname()
-        saving_all=Savings.query().fetch()
-        washlist_all=Wishlist.query().fetch()
+        saving_all = current_user.user_savings.get()
+        # saving_all=Savings.query().fetch()
+        # washlist_all=Wishlist.query().fetch()
         savingM2 = 0
         savingM6 = 0
         savingM12 = 0
-        if(saving_all[0].savingType=="savingPerMonth"):
-            savingM2 = int(saving_all[0].money_being_saved) * 2
-            savingM6 = int(saving_all[0].money_being_saved) * 6
-            savingM12 = int(saving_all[0].money_being_saved) * 12
-            saving_all.append(savingM2)
-            saving_all.append(savingM6)
-            saving_all.append(savingM12)
-        if(saving_all[0].savingType=="savingForSetMonths"):
-            savingM2 = round(float(saving_all[0].saved_amount), 2) * 2
-            savingM6 = round(float(saving_all[0].saved_amount), 2) * 6
-            savingM12 = round(float(saving_all[0].saved_amount), 2) * 12
-            saving_all.append(savingM2)
-            saving_all.append(savingM6)
-            saving_all.append(savingM12)
 
+        wishlist_for_info=Wishlist.query().fetch()
+        if(saving_all.savingType=="savingPerMonth"):
+            savingM2 = round(float(saving_all.money_being_saved) * 2, 2)
+            savingM2_bar=savingM2/round(float(wishlist_for_info[0].the_wishlist_total_amount), 2)
+            savingM2_bar_2=savingM2_bar*100
+
+
+            savingM6 = round(float(saving_all.money_being_saved) * 6, 2)
+            savingM6_bar=savingM6/round(float(wishlist_for_info[0].the_wishlist_total_amount), 2)
+            savingM6_bar_2=savingM6_bar*100
+
+            savingM12 = round(float(saving_all.money_being_saved) * 12, 2)
+            savingM12_bar=savingM12/round(float(wishlist_for_info[0].the_wishlist_total_amount), 2)
+            savingM12_bar_2=savingM12_bar*100
+            # saving_all.append(savingM2)
+            # saving_all.append(savingM6)
+            # saving_all.append(savingM12)
+        if(saving_all.savingType=="savingForSetMonths"):
+            savingM2 = round(float(saving_all.saved_amount) * 2, 2)
+            savingM6 = round(float(saving_all.saved_amount) * 6, 2)
+            savingM12 = round(float(saving_all.saved_amount) * 12, 2)
+            # saving_all.append(savingM2)
+            # saving_all.append(savingM6)
+            # saving_all.append(savingM12)
+        # new_bar_entity=BarChange(percent2=savingM2_bar_2,
+        #                         percent6=savingM6_bar_2,
+        #                         percent12=savingM12)
+        # new_bar_entity.put()
         ###savingType contains
         ###savingForSetMonths or savingPerMonth(already have this code)
         ###saved_amount is the variable that contains integers for savingForSetMonths
 
         nameGenerator = {
         'email_address': email_address,
-        'saving_info': saving_all[0],
+        'saving_info': saving_all,
         'savingM2': savingM2,
         'savingM6': savingM6,
         'savingM12': savingM12,
         }
         self.response.write(bar_template.render(nameGenerator))
+
+class DeletePage(webapp2.RequestHandler):
+    def get(self):
+        detemp = the_jinja_env.get_template("templates/delete.html")
+        wish=0
+        bud=0
+        save=0
+        ins=0
+        t=0
+        u=0
+        bc=0
+        wishlist_for_info=Wishlist.query().fetch()
+        budget_for_info=Budget.query().fetch()
+        saving_for_info=Savings.query().fetch()
+        income_for_info=Income.query().fetch()
+        total_for_info=Total.query().fetch()
+        bc_for_info=BarChange.query().fetch()
+        for x in wishlist_for_info:
+            wishlist_for_info[wish].key.delete()
+            wish=wish+1
+        for x in budget_for_info:
+            budget_for_info[bud].key.delete()
+            bud=bud+1
+        for x in saving_for_info:
+            saving_for_info[save].key.delete()
+            save=save+1
+        for x in income_for_info:
+            income_for_info[ins].key.delete()
+            ins=ins+1
+        for x in total_for_info:
+            total_for_info[t].key.delete()
+            t=t+1
+        for x in bc_for_info:
+            bc_for_info[bc].key.delete()
+            bc=bc+1
+        self.response.write(detemp.render())
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
@@ -310,5 +366,6 @@ app = webapp2.WSGIApplication([
     ("/budget_confir.html", budgetConfirmPage),
     ("/add_wishlist", WishAddPage),
     ("/wishlist.html", WishlistPage),
-    ("/bar", BarPage)
+    ("/bar", BarPage),
+    ("/delete", DeletePage)
 ], debug=True)
