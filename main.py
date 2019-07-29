@@ -131,7 +131,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
         current_user = User.query().filter(User.email == user.nickname()).get()
         # new_budget_entity_key.get()
         current_user.user_budget.append(new_budget_entity_key)
-        the_total+=float(the_amount)
+        the_total+=round(float(the_amount), 2)
 
         new_income_entity= Income(income=the_income)
         new_income_entity_key = new_income_entity.put()
@@ -156,7 +156,7 @@ class budgetConfirmPage(webapp2.RequestHandler):
                 current_user.user_budget.append(new_budget_entity_key2)
                 current_user.put()
                 # print (current_user)
-                the_total+=float(the_amount2)
+                the_total+=round(float(the_amount2), 2)
 
         new_savings_entity= Savings(savingType=the_saving_type,
                                     money_being_saved=the_money_being_saved
@@ -181,16 +181,16 @@ class budgetConfirmPage(webapp2.RequestHandler):
         # new_total_entity.put()
 
         if(new_savings_entity.savingType=="savingPerMonth"):
-            the_total+=float(new_savings_entity.money_being_saved)
+            the_total+=round(float(new_savings_entity.money_being_saved), 2)
         else:
 
-            m_t_s=float(wishlist_list.the_wishlist_total_amount)/float(new_savings_entity.money_being_saved)
+            m_t_s=round(float(wishlist_list.the_wishlist_total_amount)/float(new_savings_entity.money_being_saved), 2)
             the_total+=m_t_s
             new_savings_entity.saved_amount=str(m_t_s)
             new_savings_entity_key = new_savings_entity.put()
             current_user.user_savings = new_savings_entity_key
             current_user.put()
-        the_total=float((the_income))-the_total
+        the_total=round(float((the_income))-the_total, 2)
         the_string_total=str(the_total)
         new_total_entity= Total(total_amount=the_string_total,
                                 )
@@ -236,7 +236,7 @@ class WishlistPage(webapp2.RequestHandler):
                 price_list.append(price2)
                 item_list.append(item_name2)
                 # new_budget_entity2.put()
-                the_wishlist_total+=float(price2)
+                the_wishlist_total+=round(float(price2), 2)
 
         # new_savings_entity= Savings(savingType=the_saving_type,
         #                             money_being_saved=the_money_being_saved
@@ -269,28 +269,26 @@ class BarPage(webapp2.RequestHandler):
         #This is where we will ask the user to input monthly income and expenses
         bar_template = the_jinja_env.get_template("templates/bar.html")
         user = users.get_current_user()
-        current_user = User.query().filter(User.email == user.nickname()).get()
         email_address = user.nickname()
-        saving_all = current_user.user_savings.get()
-        # saving_all=Savings.query().fetch()
-        # washlist_all=Wishlist.query().fetch()
+        saving_all=Savings.query().fetch()
+        washlist_all=Wishlist.query().fetch()
         savingM2 = 0
         savingM6 = 0
         savingM12 = 0
-        if(saving_all.savingType=="savingPerMonth"):
-            savingM2 = int(saving_all.money_being_saved) * 2
-            savingM6 = int(saving_all.money_being_saved) * 6
-            savingM12 = int(saving_all.money_being_saved) * 12
-            # saving_all.append(savingM2)
-            # saving_all.append(savingM6)
-            # saving_all.append(savingM12)
-        if(saving_all.savingType=="savingForSetMonths"):
-            savingM2 = float(saving_all.saved_amount) * 2
-            savingM6 = float(saving_all.saved_amount) * 6
-            savingM12 = float(saving_all.saved_amount) * 12
-            # saving_all.append(savingM2)
-            # saving_all.append(savingM6)
-            # saving_all.append(savingM12)
+        if(saving_all[0].savingType=="savingPerMonth"):
+            savingM2 = int(saving_all[0].money_being_saved) * 2
+            savingM6 = int(saving_all[0].money_being_saved) * 6
+            savingM12 = int(saving_all[0].money_being_saved) * 12
+            saving_all.append(savingM2)
+            saving_all.append(savingM6)
+            saving_all.append(savingM12)
+        if(saving_all[0].savingType=="savingForSetMonths"):
+            savingM2 = round(float(saving_all[0].saved_amount), 2) * 2
+            savingM6 = round(float(saving_all[0].saved_amount), 2) * 6
+            savingM12 = round(float(saving_all[0].saved_amount), 2) * 12
+            saving_all.append(savingM2)
+            saving_all.append(savingM6)
+            saving_all.append(savingM12)
 
         ###savingType contains
         ###savingForSetMonths or savingPerMonth(already have this code)
@@ -298,7 +296,7 @@ class BarPage(webapp2.RequestHandler):
 
         nameGenerator = {
         'email_address': email_address,
-        'saving_info': saving_all,
+        'saving_info': saving_all[0],
         'savingM2': savingM2,
         'savingM6': savingM6,
         'savingM12': savingM12,
