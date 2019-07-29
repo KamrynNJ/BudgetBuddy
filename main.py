@@ -16,6 +16,10 @@ class Budget(ndb.Model):
     expenses = ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
     expense_amount=ndb.StringProperty(required=True)
+class BarChange(ndb.Model):
+    percent2 = ndb.FloatProperty(required=True)
+    percent6 = ndb.FloatProperty(required=True)
+    percent12 = ndb.FloatProperty(required=True)
 class Savings(ndb.Model):
     savingType=ndb.StringProperty(required=True)
     money_being_saved=ndb.StringProperty(required=True)
@@ -277,10 +281,21 @@ class BarPage(webapp2.RequestHandler):
         savingM2 = 0
         savingM6 = 0
         savingM12 = 0
+
+        wishlist_for_info=Wishlist.query().fetch()
         if(saving_all.savingType=="savingPerMonth"):
-            savingM2 = int(saving_all.money_being_saved) * 2
-            savingM6 = int(saving_all.money_being_saved) * 6
-            savingM12 = int(saving_all.money_being_saved) * 12
+            savingM2 = float(saving_all.money_being_saved) * 2
+            savingM2_bar=savingM2/float(wishlist_for_info[0].the_wishlist_total_amount)
+            savingM2_bar_2=savingM2_bar*100
+
+
+            savingM6 = float(saving_all.money_being_saved) * 6
+            savingM6_bar=savingM6/float(wishlist_for_info[0].the_wishlist_total_amount)
+            savingM6_bar_2=savingM6_bar*100
+
+            savingM12 = float(saving_all.money_being_saved) * 12
+            savingM12_bar=savingM12/float(wishlist_for_info[0].the_wishlist_total_amount)
+            savingM12_bar_2=savingM12_bar*100
             # saving_all.append(savingM2)
             # saving_all.append(savingM6)
             # saving_all.append(savingM12)
@@ -291,7 +306,10 @@ class BarPage(webapp2.RequestHandler):
             # saving_all.append(savingM2)
             # saving_all.append(savingM6)
             # saving_all.append(savingM12)
-
+        # new_bar_entity=BarChange(percent2=savingM2_bar_2,
+        #                         percent6=savingM6_bar_2,
+        #                         percent12=savingM12)
+        # new_bar_entity.put()
         ###savingType contains
         ###savingForSetMonths or savingPerMonth(already have this code)
         ###saved_amount is the variable that contains integers for savingForSetMonths
@@ -305,6 +323,42 @@ class BarPage(webapp2.RequestHandler):
         }
         self.response.write(bar_template.render(nameGenerator))
 
+class DeletePage(webapp2.RequestHandler):
+    def get(self):
+        detemp = the_jinja_env.get_template("templates/delete.html")
+        wish=0
+        bud=0
+        save=0
+        ins=0
+        t=0
+        u=0
+        bc=0
+        wishlist_for_info=Wishlist.query().fetch()
+        budget_for_info=Budget.query().fetch()
+        saving_for_info=Savings.query().fetch()
+        income_for_info=Income.query().fetch()
+        total_for_info=Total.query().fetch()
+        bc_for_info=BarChange.query().fetch()
+        for x in wishlist_for_info:
+            wishlist_for_info[wish].key.delete()
+            wish=wish+1
+        for x in budget_for_info:
+            budget_for_info[bud].key.delete()
+            bud=bud+1
+        for x in saving_for_info:
+            saving_for_info[save].key.delete()
+            save=save+1
+        for x in income_for_info:
+            income_for_info[ins].key.delete()
+            ins=ins+1
+        for x in total_for_info:
+            total_for_info[t].key.delete()
+            t=t+1
+        for x in bc_for_info:
+            bc_for_info[bc].key.delete()
+            bc=bc+1
+        self.response.write(detemp.render())
+
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/expenses", ExpensePage),
@@ -312,5 +366,6 @@ app = webapp2.WSGIApplication([
     ("/budget_confir.html", budgetConfirmPage),
     ("/add_wishlist", WishAddPage),
     ("/wishlist.html", WishlistPage),
-    ("/bar", BarPage)
+    ("/bar", BarPage),
+    ("/delete", DeletePage)
 ], debug=True)
