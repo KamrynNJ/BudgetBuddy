@@ -339,6 +339,12 @@ class DeletePage(webapp2.RequestHandler):
         income_for_info=Income.query().fetch()
         total_for_info=Total.query().fetch()
         bc_for_info=BarChange.query().fetch()
+        # user_for_info=User.query().fetch()
+
+        user = users.get_current_user()
+        current_user = User.query().filter(User.email == user.nickname()).get()
+        user_bugdet_only=current_user.user_budget
+
         for x in wishlist_for_info:
             wishlist_for_info[wish].key.delete()
             wish=wish+1
@@ -357,6 +363,10 @@ class DeletePage(webapp2.RequestHandler):
         for x in bc_for_info:
             bc_for_info[bc].key.delete()
             bc=bc+1
+        for x in bc_for_info:
+            bc_for_info[bc].key.delete()
+            bc=bc+1
+        current_user.key.delete()
         self.response.write(detemp.render())
 
 app = webapp2.WSGIApplication([
